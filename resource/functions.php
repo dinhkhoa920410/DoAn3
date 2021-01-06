@@ -107,7 +107,7 @@ function get_categories() {
             while($row = fetch_array($query)) {
                 $categories_links = <<<DELIMETER
                 
-                <a href='category.php?id={$row['cat_title']}' class='list-group-item'>{$row['cat_title']}</a>
+                <a href='category.php?cat=1&page=1' class='list-group-item'>{$row['cat_title']}</a>
                 
                 
                 DELIMETER;
@@ -192,7 +192,7 @@ function login_user() {
 function update_params($key, $value){
     $params           = array_merge($_GET, array($key => $value));
     $new_query_string = http_build_query($params);
-    
+
     return $new_query_string;
 }
 
