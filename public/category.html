@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shop Homepage - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/shop-homepage.css" r
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        .container {
+            padding: 0;
+            width: 100%;
+            display: flex;
+        }
+
+        .side-area {
+            padding: 0;
+            /* float: left; */
+            width: 20%;
+        }
+
+        .side-area ul{
+            list-style-type: none;
+            margin: 50px 20px;
+            border-right: 1px solid lightgray;
+        }
+
+        .side-area li{
+            border-bottom: 1px solid lightgray;
+            margin: 20px;
+        }
+
+        .side-area label{
+           width: 100%;
+           height: 100%;
+        }
+
+        .main-area {
+            /* float: left; */
+            width: 80%;
+            padding: 0 15px;
+        }
+
+        .main-area .directory {
+            width: 100%;
+        }
+
+        .main-area .products-list {
+            padding: 0;
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .main-area .items {
+            min-width: 200px;
+            width: calc(100%/5 - 2*20px);
+            margin: 0 20px;
+        }
+        .main-area .items a{
+            text-decoration: none;
+        }
+        .main-area .hide-on-hover {
+            margin: 0 15px;
+        }
+
+        .item-header{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .is-new{
+            visibility: hidden;
+            color: green;
+        }
+
+        .sale-rate{
+            visibility: hidden;
+            color: red;
+        }
+
+        .main-area .items:hover {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            border: 1px solid lightgray;
+        }
+
+        .main-area li:hover .hide-on-hover {
+            visibility: hidden;
+        }
+
+        .main-area img {
+            margin: 0;
+            width: 100%;
+        }
+
+        .clear-both {
+            clear: both;
+        }
+    </style>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <?php include(TEMPLATE_FRONT . DS . "top_nav.php") ?>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Side Area -->
+        <div class="side-area">
+            <ul><h2>DANH MỤC</h2>
+                <li>Bơ sữa (10)</li>
+                <li>Bơ sữa (10)</li>
+                <li>Bơ sữa (10)</li>
+                <li>Bơ sữa (10)</li>
+                <li>Bơ sữa (10)</li>
+                <li>Bơ sữa (10)</li>
+            </ul>
+            <ul><h4>Loại nông sản</h4>
+                <li>
+                    <label><input type="radio" id="all-products" name="filter" value="allProducts" checked> Tất cả</label>
+                </li>
+                <li>
+                    <label><input type="radio" id="new-products" name="filter" value="newProducts"> Nông sản mới</label>
+                </li>
+                <li>
+                    <label><input type="radio" id="hot-products" name="filter" value="hotProducts"> Nông sản bán chạy</label>
+                </li>
+                <li>
+                    <label><input type="radio" id="sale-products" name="filter" value="saleProducts"> Nông sản giảm giá sâu</label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Area -->
+        <div class="main-area">
+
+            <div class="directory">abc</div>
+            <div class="products-list">
+                <!-- <ul> -->
+                    <div class="items">
+                        <a href="item.php?productID=<?php echo $productID ?> ">
+                            <div class="item-header">
+                                <div class="is-new">
+                                    MỚI
+                                </div>
+                                <div class="sale-rate">
+                                    <?php echo $saleRate ?>%
+                                </div>
+                            </div>
+                            <img src="images/banana.jpg">
+                            <div class="hide-on-hover">
+                                <p class="product-name">Banana</p>
+                                <p class="product-price"><span class="price">35000 vnd</span>/kg</p>
+                                <p class="star-rate"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="items">
+                        <a href="item.php?productID=<?php echo $productID ?> ">
+                            <img src="images/banana.jpg">
+                            <div class="hide-on-hover">
+                                <p class="product-name">Banana</p>
+                                <p class="product-price"><span class="price">35000 vnd</span>/kg</p>
+                                <p class="star-rate"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="items">
+                        <a href="item.php?productID=<?php echo $productID ?> ">
+                            <img src="images/banana.jpg">
+                            <div class="hide-on-hover">
+                                <p class="product-name">Banana</p>
+                                <p class="product-price"><span class="price">35000 vnd</span>/kg</p>
+                                <p class="star-rate"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="items">
+                        <a href="item.php?productID=<?php echo $productID ?> ">
+                            <img src="images/banana.jpg">
+                            <div class="hide-on-hover">
+                                <p class="product-name">Banana</p>
+                                <p class="product-price"><span class="price">35000 vnd</span>/kg</p>
+                                <p class="star-rate"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="items">
+                        <a href="item.php?productID=<?php echo $productID ?> ">
+                            <img src="images/banana.jpg">
+                            <div class="hide-on-hover">
+                                <p class="product-name">Banana</p>
+                                <p class="product-price"><span class="price">35000 vnd</span>/kg</p>
+                                <p class="star-rate"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="items">
+                        <a href="item.php?productID=<?php echo $productID ?> ">
+                            <img src="images/banana.jpg">
+                            <div class="hide-on-hover">
+                                <p class="product-name">Banana</p>
+                                <p class="product-price"><span class="price">35000 vnd</span>/kg</p>
+                                <p class="star-rate"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="items">
+                        <a href="item.php?productID=<?php echo $productID ?> ">
+                            <img src="images/banana.jpg">
+                            <div class="hide-on-hover">
+                                <p class="product-name">Banana</p>
+                                <p class="product-price"><span class="price">35000 vnd</span>/kg</p>
+                                <p class="star-rate"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                <!-- </ul> -->
+            </div>
+            <div class="pages"></div>
+        </div>
+        <div class="clear-both"></div>
+    </div>
+- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
