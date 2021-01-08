@@ -189,11 +189,17 @@ function login_user() {
 
 }
 
-function update_params($key, $value){
+function update_param($key, $value){
     $params           = array_merge($_GET, array($key => $value));
     $new_query_string = http_build_query($params);
 
     return $new_query_string;
+}
+
+function getNewParamURL($key, $value){
+    $params     =   update_param($key, $value);
+    $new_url    =   $_SERVER["PHP_SELF"] + $params;
+    return $new_url;
 }
 
 function debug_to_console($data) {
@@ -202,5 +208,12 @@ function debug_to_console($data) {
         $output = implode(',', $output);
 
     echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+}
+
+function getMaxPage($queryString, $numberOfItemPerPage){
+    $query = query($queryString);
+    $maxPage = ceil(mysqli_num_rows($query)/$numberOfItemPerPage);
+
+    return $maxPage;
 }
 ?>

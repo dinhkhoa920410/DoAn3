@@ -10,26 +10,27 @@
                 <?php
                     $queryString = "SELECT * FROM categories";
                     $query = query($queryString);
+                    
                     while($row = fetch_array($query)) 
                     {
                         $categoryID = $row['cat_id'];
                         $categoryName = $row['cat_title'];
                 ?>
-                    <li><a href="category.php?<?php echo update_params('cat',$categoryID) ?>"><?php echo $categoryName ?></a></li>
+                    <li><a href="?<?php echo update_param('cat',$categoryID) ?>"><?php echo $categoryName ?></a></li>
                 <?php } ?>
             </ul>
-            <ul><h4>Loại nông sản</h4>
+            <ul class="filters"><h4>Bộ lọc</h4>
                 <li>
                     <label><input type="radio" id="all-products" name="filter" value="allProducts" checked> Tất cả</label>
                 </li>
                 <li>
-                   <label><input type="radio" id="new-products" name="filter" value="newProducts"> Nông sản mới</label>
+                   <label><input type="radio" id="new-products" name="filter" value="newProducts"> Mới</label>
                 </li>
                 <li>
-                    <label><input type="radio" id="hot-products" name="filter" value="hotProducts"> Nông sản bán chạy</label>
+                    <label><input type="radio" id="hot-products" name="filter" value="hotProducts"> Bán chạy</label>
                 </li>
                 <li>
-                    <label><input type="radio" id="sale-products" name="filter" value="saleProducts"> Nông sản giảm giá sâu</label>
+                    <label><input type="radio" id="sale-products" name="filter" value="saleProducts"> Khuyến mãi</label>
                 </li>
             </ul>
         </div>
@@ -39,13 +40,18 @@
             <div class="directory">abc</div>
             <div class="products-list">
             <?php
-                $currentPage = escape_string($_GET['page']);
                 $numberOfItemPerPage = 10;
+                $currentPage = escape_string($_GET['page']);
+                
+                
                 $showProductFrom = ($currentPage-1)*$numberOfItemPerPage;
                 $filterCatID = escape_string($_GET['cat']);
                 // $filter = escape_string($_GET['filter']);
-                $queryString = "SELECT * FROM products WHERE product_category_id = $filterCatID limit $showProductFrom, $numberOfItemPerPage";
-                $query = query($queryString);
+                $queryStringAll = "SELECT * FROM products WHERE product_category_id = $filterCatID";
+                $maxPage = getMaxPage($queryStringAll, $numberOfItemPerPage);
+                $queryStringShowing = "SELECT * FROM products WHERE product_category_id = $filterCatID limit $showProductFrom, $numberOfItemPerPage";
+                $query = query($queryStringShowing);
+                
                 while($row = fetch_array($query)) 
                 {
                     $productID = $row['product_id'];
@@ -80,9 +86,18 @@
                 }
             ?>
             </div>
-            <div class="pages"></div>
+            <div class="pages">
+                <a href="?<?php echo update_param('page',1) ?>"><div class="page-buttons"><div class="overlay">&lt;&lt;</div></div></a>
+                <a href="?<?php echo update_param('page',($currentPage>1)?$currentPage-1:1) ?>"><div class="page-buttons"><div class="overlay">&lt;</div></div></a>
+                <a href="?<?php echo update_param('page',$currentPage-2) ?>" <?php if($currentPage<=2){?>style="display:none"<?php }?>><div class="page-buttons"><div class="overlay"><?php echo $currentPage-2 ?></div></div></a>
+                <a href="?<?php echo update_param('page',$currentPage-1) ?>" <?php if($currentPage<=1){?>style="display:none"<?php }?>><div class="page-buttons"><div class="overlay"><?php echo $currentPage-1 ?></div></div></a>
+                <a href=""><div class="page-buttons current-page-buttons"><div class="overlay"><?php echo $currentPage ?></div></div></a>
+                <a href="?<?php echo update_param('page',$currentPage+1) ?>" <?php if($currentPage+1>$maxPage){?>style="display:none"<?php }?>><div class="page-buttons"><div class="overlay"><?php echo $currentPage+1 ?></div></div></a>
+                <a href="?<?php echo update_param('page',$currentPage+2) ?>" <?php if($currentPage+2>$maxPage){?>style="display:none"<?php }?>><div class="page-buttons"><div class="overlay"><?php echo $currentPage+2 ?></div></div></a>
+                <a href="?<?php echo update_param('page',($currentPage<$maxPage)?$currentPage+1:$maxPage) ?>"><div class="page-buttons"><div class="overlay">&gt;</div></div></a>
+                <a href="?<?php echo update_param('page',$maxPage) ?>"><div class="page-buttons"><div class="overlay">&gt;&gt;</div></div></a>
+            </div>
         </div>
-        <div class="clear-both"></div>
 </div>
 <!-- /.container -->
 
