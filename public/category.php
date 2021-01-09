@@ -61,6 +61,7 @@
                     $productName = $row['product_title'];
                     $productPrice = $row['product_current_price'];
                     $originalPrice = $row['product_original_price'];
+                    $productIMG = $row['product_image'];
                     $rating = $row['product_rate'];
             ?>
                 <div class="items">
@@ -73,7 +74,7 @@
                                 -<?php echo $saleRate ?>%
                             </div>
                         </div>
-                        <img src="images/banana.jpg">
+                        <img src="images/<?php echo $productIMG ?>">
                         <div class="hide-on-hover">
                             <p class="product-name"><?php echo $productName ?></p>
                             <p class="product-price"><span class="current-price"><?php echo $productPrice ?></span> <span class="original-price"><?php echo $originalPrice ?></span> vnd/kg</p>
