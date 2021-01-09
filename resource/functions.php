@@ -107,7 +107,7 @@ function get_categories() {
             while($row = fetch_array($query)) {
                 $categories_links = <<<DELIMETER
                 
-                <a href='category.php?cat=1&page=1' class='list-group-item'>{$row['cat_title']}</a>
+                <a href='category.php?cat=1&page=1&filter=0' class='list-group-item'>{$row['cat_title']}</a>
                 
                 
                 DELIMETER;
@@ -215,5 +215,9 @@ function getMaxPage($queryString, $numberOfItemPerPage){
     $maxPage = ceil(mysqli_num_rows($query)/$numberOfItemPerPage);
 
     return $maxPage;
+}
+
+function onClickFilter($filterIndex){
+    header("Location: ?"+update_param('filter', $filterIndex));
 }
 ?>

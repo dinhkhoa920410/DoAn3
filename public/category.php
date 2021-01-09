@@ -3,6 +3,9 @@
 <?php include(TEMPLATE_FRONT . DS . "header.php") ?>
 
 <!-- Page Content -->
+<div class="banner">
+    <img src="images/banner.jpg">
+</div>
 <div class="container">
         <!-- Side Area -->
         <div class="side-area">
@@ -10,6 +13,7 @@
                 <?php
                     $queryString = "SELECT * FROM categories";
                     $query = query($queryString);
+                    
                     
                     while($row = fetch_array($query)) 
                     {
@@ -19,18 +23,23 @@
                     <li><a href="?<?php echo update_param('cat',$categoryID) ?>"><?php echo $categoryName ?></a></li>
                 <?php } ?>
             </ul>
+
+            <?php 
+                $currentFilter = $currentPage = escape_string($_GET['filter']);;
+            ?>
             <ul class="filters"><h4>Bộ lọc</h4>
+            
                 <li>
-                    <label><input type="radio" id="all-products" name="filter" value="allProducts" checked> Tất cả</label>
+                    <a href="?<?php echo update_param('filter', 0)?>"><div class="filter-element"><input type="radio" name="filter" <?php if($currentFilter==0){?> checked<?php }?>> Tất cả</div></a>
                 </li>
                 <li>
-                   <label><input type="radio" id="new-products" name="filter" value="newProducts"> Mới</label>
+                    <a href="?<?php echo update_param('filter', 1)?>"><div class="filter-element"><input type="radio" name="filter" <?php if($currentFilter==1){?> checked<?php }?>> Mới</div></a>
                 </li>
                 <li>
-                    <label><input type="radio" id="hot-products" name="filter" value="hotProducts"> Bán chạy</label>
+                    <a href="?<?php echo update_param('filter', 2)?>"><div class="filter-element"><input type="radio" name="filter" <?php if($currentFilter==2){?> checked<?php }?>> Bán chạy</div></a>
                 </li>
                 <li>
-                    <label><input type="radio" id="sale-products" name="filter" value="saleProducts"> Khuyến mãi</label>
+                    <a href="?<?php echo update_param('filter', 3)?>"><div class="filter-element"><input type="radio" name="filter" <?php if($currentFilter==3){?> checked<?php }?>> Khuyến mãi</div></a>
                 </li>
             </ul>
         </div>
@@ -46,10 +55,17 @@
                 
                 $showProductFrom = ($currentPage-1)*$numberOfItemPerPage;
                 $filterCatID = escape_string($_GET['cat']);
-                // $filter = escape_string($_GET['filter']);
                 $queryStringAll = "SELECT * FROM products WHERE product_category_id = $filterCatID";
+                switch($currentFilter){
+                    case(1):
+                        $queryStringAll = $queryStringAll." AND is_product_new = true";break;
+                    case(2):
+                        $queryStringAll = $queryStringAll." AND is_product_new = true";break;
+                    case(3):
+                        $queryStringAll = $queryStringAll." AND is_product_sale = true";break;
+                }
                 $maxPage = getMaxPage($queryStringAll, $numberOfItemPerPage);
-                $queryStringShowing = "SELECT * FROM products WHERE product_category_id = $filterCatID limit $showProductFrom, $numberOfItemPerPage";
+                $queryStringShowing = $queryStringAll." limit $showProductFrom, $numberOfItemPerPage";
                 $query = query($queryStringShowing);
                 
                 while($row = fetch_array($query)) 
