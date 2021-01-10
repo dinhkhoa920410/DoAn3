@@ -2,12 +2,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: #333333;
 }
 
 .caption {
   height: 164px;
 }
 
+/* ----------------------------------------------------------------------------------- */
 
 .banner, .banner img{
   width: 100%;
@@ -35,6 +37,8 @@
   margin: 20px;
 }
 
+/* ----------------------------------------------------------------------------------- */
+
 .filters{
   padding: 0px;
 }
@@ -55,6 +59,8 @@
   background-color: rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
+
+/* ----------------------------------------------------------------------------------- */
 
 .main-area {
   width: 80%;
@@ -91,12 +97,12 @@
 
 .is-new{
   visibility: hidden;
-  color: green;
+  color: rgb(50, 115, 32);
 }
 
 .sale-rate{
   visibility: hidden;
-  color: red;
+  color: rgb(253, 62, 59);
 }
 
 .main-area .items:hover {
@@ -116,7 +122,7 @@
 }
 
 .current-price{
-  color: green;
+  color: rgb(169, 83, 111);
   font-size: x-large;
 }
 
@@ -126,7 +132,7 @@
   text-decoration: line-through;
 }
 
-
+/* ---------------------------------------------------------------------------------------------- */
 
 .main-area .pages{
   margin-right: 3%;
@@ -154,12 +160,13 @@
 	background-color: rgba(0, 0, 0, 0.2);
 }
 .pages .current-page-buttons{
-  background-color: darkkhaki;
+  background-color: rgb(67, 153, 42);
+  color: white;
   font-weight: bold;
 }
 
-
-
+/* ----------------------------------------------------------------------------------- */
+/* STAR RATING */
 .rate i, .rate i:hover ~ i {
   color: #222;
   text-shadow: none;
@@ -196,4 +203,13 @@
 .rate i {
   cursor: pointer;
   font-style: normal;
+}
+
+/* ----------------------------------------------------------------------------------- */
+/* Header */
+.header{
+  background-color: rgb(67, 153, 42);
+}
+.header a{
+  color: white!important;
 }

@@ -31,6 +31,6 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top header" role="navigation">
         <?php include(TEMPLATE_FRONT . DS . "top_nav.php") ?>
     </nav>

@@ -15,13 +15,12 @@
                     $query = query($queryString);
                     
                     
-                    while($row = fetch_array($query)) 
-                    {
+                    while($row = fetch_array($query)):
                         $categoryID = $row['cat_id'];
                         $categoryName = $row['cat_title'];
                 ?>
                     <li><a href="?<?php echo update_param('cat',$categoryID) ?>"><?php echo $categoryName ?></a></li>
-                <?php } ?>
+                <?php endwhile; ?>
             </ul>
 
             <?php 
@@ -68,8 +67,7 @@
                 $queryStringShowing = $queryStringAll." limit $showProductFrom, $numberOfItemPerPage";
                 $query = query($queryStringShowing);
                 
-                while($row = fetch_array($query)) 
-                {
+                while($row = fetch_array($query)):
                     $productID = $row['product_id'];
                     $isNew = $row['is_product_new'];
                     $isSale = $row['is_product_sale'];
@@ -94,13 +92,13 @@
                         <div class="hide-on-hover">
                             <p class="product-name"><?php echo $productName ?></p>
                             <p class="product-price"><span class="current-price"><?php echo $productPrice ?></span> <span class="original-price"><?php echo $originalPrice ?></span> vnd/kg</p>
-                            <p class="star-rate"><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                            <p class="star-rate"><span class="star1">☆</span class="star2"><span class="star3">☆</span><span class="star4">☆</span><span>☆</span><span class="star5">☆</span>
                             </p>
                         </div>
                     </a>
                 </div>
             <?php
-                }
+                endwhile;
             ?>
             </div>
             <div class="pages">
