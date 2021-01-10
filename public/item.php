@@ -7,19 +7,21 @@
 
     <!-- Side Navigation -->
 
-    <?php include(TEMPLATE_FRONT . DS . "side_nav.php") ?>
-
     <?php 
-        $query = query("SELECT * FROM products WHERE product_id = " . escape_string($_GET['id']) . " " );
+        $query = query("SELECT * FROM products WHERE product_id = " . escape_string($_GET['id']));
         confirm($query);
-    
-        while($row = fetch_array($query)):
-            
-
-            echo $row['product_current_price'];
-
-         
-            
+        $row = fetch_array($query);
+        $productID = $row['product_id'];
+        $isNew = $row['is_product_new'];
+        $isSale = $row['is_product_sale'];
+        $saleRate = 100 - $row['product_current_price']/$row['product_original_price']*100;
+        $productName = $row['product_title'];
+        $productPrice = $row['product_current_price'];
+        $originalPrice = $row['product_original_price'];
+        $productIMG = $row['product_image'];
+        $rating = $row['product_rate'];
+        $shortDesc = $row['short_desc'];
+        $productDescription = $row['product_description'];
     ?>
 
 
@@ -30,7 +32,8 @@
         <div class="row">
 
             <div class="col-md-7">
-                <img class="img-responsive" src="<?php echo $row['product_image']; ?>" alt="">
+
+                <img class="img-responsive" src="images/<?php echo $row['product_image']; ?>" alt="">
 
             </div>
 
@@ -40,9 +43,9 @@
 
 
                     <div class="caption-full">
-                        <h4><a href="#"><?php echo $row['product_title']; ?></a></h4>
+                        <h3><?php echo $row['product_title']; ?></h3>
                         <hr>
-                        <h4 class=""><?php echo "&#36;" . $row['product_current_price']; ?></h4>
+                        
 
                         <div class="ratings">
 
@@ -56,12 +59,15 @@
                             </p>
                         </div>
 
-                        <p><?php echo $row['short_desc']; ?></p>
+                        <span class="current-price"><?php echo $productPrice; ?></span>
+                        <span class="original-price"><?php echo $originalPrice; ?></span>
+                        <span> VND</span>
+                        <p><?php echo $shortDesc; ?></p>
 
 
                         <form action="">
                             <div class="form-group">
-                                <input type="submit" class="btn btn-primary" value="ADD TO CART">
+                                <input type="submit" class="btn btn-primary" value="ADDTOCART">
                             </div>
                         </form>
 
@@ -88,123 +94,90 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
-                            data-toggle="tab">Description</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab"
                             data-toggle="tab">Reviews</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab"
+                            data-toggle="tab">Description</a></li>
                 </ul>
-
+                <p id="test"></p>
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="home">
-                        <p></p>
-                        <p><?php echo $row['product_description']; ?></p>
-
-
-
-                    </div>
-
-
-
-
-                    <div role="tabpanel" class="tab-pane" id="profile">
-
+                    <div role="tabpanel" class="tab-pane active" id="profile">
                         <div class="col-md-6">
-
-                            <h3>2 Reviews From </h3>
-
+                        <?php
+                            $numberCommentsPerPage = 5;
+                            $query = query("SELECT * FROM rating WHERE product_id = " . escape_string($_GET['id']));
+                            while($row = fetch_array($query)):
+                                $userID = $row['user_id'];
+                                $star = $row['star'];
+                                $comment = $row['comment'];
+                                $dateTime = $row['datetime']
+                        ?>
                             <hr>
-
-                            <div class="row">
+                            <div class="row scroll-vertical">
                                 <div class="col-md-12">
+                                    <h3><?php echo $userID ?></h3>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star-empty"></span>
-                                    Anonymous
-                                    <span class="pull-right">10 days ago</span>
-                                    <p>This product was great in terms of quality. I would definitely buy another!
-                                    </p>
+                                    <?php echo $star ?>
+                                    <span class="pull-right"><?php echo $dateTime ?></span>
+                                    <p><?php echo $comment ?></p>
                                 </div>
                             </div>
-
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    Anonymous
-                                    <span class="pull-right">12 days ago</span>
-                                    <p>I've alredy ordered another one!</p>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    Anonymous
-                                    <span class="pull-right">15 days ago</span>
-                                    <p>I've seen some better than this, but not at this price. I definitely
-                                        recommend this item.</p>
-                                </div>
-                            </div>
-
+                        <?php 
+                            endwhile;
+                        ?>
                         </div>
-
-
-                        <div class="col-md-6">
+                        <div class="col-md-6" >
+                            <div id="rating"></div>
                             <h3>Add A review</h3>
-
-                            <form action="" class="form-inline">
-                                <div class="form-group">
-                                    <label for="">Name</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Email</label>
-                                    <input type="test" class="form-control">
-                                </div>
+                            <?php debug_to_console(remove_param("star")); ?>
+                            <form action="product_rating.php?<?php echo remove_param("star");?>#rating" class="form-inline" method="post">
 
                                 <div>
-                                    <h3>Your Rating</h3>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
+                                    <?php
+                                        if(isset($_GET["star"]))
+                                            $commentStar = escape_string($_GET["star"]);
+                                    ?>
+                                    <span class="rate">
+                                        <a class="star1 <?php if($commentStar>=1){?>active<?php }?>" href="?<?php echo update_param("star",1)?>#rating">★</a>
+                                        <a class="star2 <?php if($commentStar>=2){?>active<?php }?>" href="?<?php echo update_param("star",2)?>#rating">★</a>
+                                        <a class="star3 <?php if($commentStar>=3){?>active<?php }?>" href="?<?php echo update_param("star",3)?>#rating">★</a>
+                                        <a class="star4 <?php if($commentStar>=4){?>active<?php }?>" href="?<?php echo update_param("star",4)?>#rating">★</a>
+                                        <a class="star5 <?php if($commentStar>=5){?>active<?php }?>" href="?<?php echo update_param("star",5)?>#rating">★</a>
+                                    </span>
+                                    <input type="text" style="display: none" name="commentstar" value="<?php echo $commentStar?>">
                                 </div>
-
-                                <br>
-
-                                <div class="form-group">
-                                    <textarea name="" id="" cols="60" rows="10" class="form-control"></textarea>
-                                </div>
-
-                                <br>
-                                <br>
-                                <div class="form-group">
-                                    <input type="submit" class="btn btn-primary" value="SUBMIT">
+                                <div <?php if(!isset($_GET["star"])){?>style="display:none"<?php }?>>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="">Name</label>
+                                        <input type="text" class="form-control" name="userName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Email</label>
+                                        <input type="test" class="form-control" name="userEmail">
+                                    </div>
+                                    <br><br>
+                                    <div class="form-group">
+                                        <textarea name="userComment" id="" cols="60" rows="10" class="form-control"></textarea>
+                                    </div>
+                                    <br><br>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-primary" value="SUBMIT">
+                                    </div>
                                 </div>
                             </form>
-
                         </div>
-
                     </div>
-
+                    <div role="tabpanel" class="tab-pane" id="home">
+                        <p></p>
+                        <p><?php echo $productDescription; ?></p>
+                    </div>            
                 </div>
-
             </div>
-
-
         </div>
         <!--Row for Tab Panel-->
 
@@ -212,8 +185,8 @@
 
 
     </div>
-    <?php endwhile; ?>
 
+    
 </div>
 <!-- /.container -->
 

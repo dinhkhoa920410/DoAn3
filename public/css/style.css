@@ -167,19 +167,19 @@
 
 /* ----------------------------------------------------------------------------------- */
 /* STAR RATING */
-.rate i, .rate i:hover ~ i {
+.rate a, .rate a:hover ~ a {
   color: #222;
   text-shadow: none;
   transition: color 200ms,
               text-shadow 200ms;
-
+  text-decoration: none;
   transition-delay: 0;
 }
 
 .rate{
   font-size: 48px;
 }
-.rate:hover i {
+.rate:hover a, .rate .active {
   color: #fc0;
   text-shadow: #fc0 0 0 20px;
 }
@@ -212,4 +212,10 @@
 }
 .header a{
   color: white!important;
+}
+
+/* ----------------------------------------------------------------------------------- */
+/* ITEM */
+.scroll-vertical{
+  overflow: auto;
 }
