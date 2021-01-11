@@ -18,7 +18,7 @@
     
     <link href="css/shop-homepage.css" rel="stylesheet">
     <link href="css/homepage.css" rel="stylesheet">
-    
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -62,8 +62,8 @@
 
 
                     <div class="col-md-6 navbar">
-                        <a href="">Trang chủ</a>
-                        <a href="">Khuyến mãi</a>
+                        <a href="index.php">Trang chủ</a>
+                        <a href="news.php">Khuyến mãi</a>
                         <a href="">Sản phẩm các loại</a>
                         <a href="">Liên hệ</a>
                     </div>

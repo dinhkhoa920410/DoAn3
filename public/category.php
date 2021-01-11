@@ -3,17 +3,13 @@
 <?php include(TEMPLATE_FRONT . DS . "header.php") ?>
 
 <!-- Page Content -->
-<div class="banner">
-    <img src="images/banner.jpg">
-</div>
-<div class="container">
+<div class="container-horizontal">
         <!-- Side Area -->
         <div class="side-area">
             <ul><h2>DANH MỤC</h2>
                 <?php
                     $queryString = "SELECT * FROM categories";
                     $query = query($queryString);
-                    
                     
                     while($row = fetch_array($query)):
                         $categoryID = $row['cat_id'];
