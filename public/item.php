@@ -116,11 +116,13 @@
                             <div class="row scroll-vertical">
                                 <div class="col-md-12">
                                     <h3><?php echo $userID ?></h3>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                    <span class="rate">
+                                        <i class="star1 <?php if($star>=1){?>active<?php }?>">★</i>
+                                        <i class="star2 <?php if($star>=2){?>active<?php }?>">★</i>
+                                        <i class="star3 <?php if($star>=3){?>active<?php }?>">★</i>
+                                        <i class="star4 <?php if($star>=4){?>active<?php }?>">★</i>
+                                        <i class="star5 <?php if($star>=5){?>active<?php }?>">★</i>
+                                    </span>
                                     <?php echo $star ?>
                                     <span class="pull-right"><?php echo $dateTime ?></span>
                                     <p><?php echo $comment ?></p>
@@ -132,8 +134,7 @@
                         </div>
                         <div class="col-md-6" >
                             <div id="rating"></div>
-                            <h3>Add A review</h3>
-                            <?php debug_to_console(remove_param("star")); ?>
+                            <h3>Rate the product</h3>
                             <form action="product_rating.php?<?php echo remove_param("star");?>#rating" class="form-inline" method="post">
 
                                 <div>
@@ -185,8 +186,9 @@
 
 
     </div>
+    <div class="col-md-9">
 
-    
+    </div>
 </div>
 <!-- /.container -->
 
