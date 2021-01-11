@@ -56,7 +56,7 @@ function get_products() {
                     <div class="thumbnail">
                         <a target="_blank" href="item.php?id={$row['product_id']}"><img src="{$row['product_image']}" alt=""></a>
                         <div class="caption">
-                            <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                            <h4 class="pull-right">&#36;{$row['product_current_price']}</h4>
                             <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                             </h4>
                             <p>See more snippets like this online store item at <a target="_blank"
