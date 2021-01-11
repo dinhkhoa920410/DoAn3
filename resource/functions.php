@@ -196,10 +196,11 @@ function update_param($key, $value){
     return $new_query_string;
 }
 
-function getNewParamURL($key, $value){
-    $params     =   update_param($key, $value);
-    $new_url    =   $_SERVER["PHP_SELF"] + $params;
-    return $new_url;
+function remove_param($key) {
+    $params = $_GET;
+    unset($params[$key]);
+    $new_query_string = http_build_query($params);
+    return $new_query_string;
 }
 
 function debug_to_console($data) {

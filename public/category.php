@@ -53,8 +53,16 @@
                 
                 
                 $showProductFrom = ($currentPage-1)*$numberOfItemPerPage;
-                $filterCatID = escape_string($_GET['cat']);
-                $queryStringAll = "SELECT * FROM products WHERE product_category_id = $filterCatID";
+                
+                if(!isset($_GET['search'])){
+                    $filterCatID = escape_string($_GET['cat']);
+                    $queryStringAll = "SELECT * FROM products WHERE product_category_id = $filterCatID";
+                }
+                else{
+                    $txtSearch = escape_string($_GET['search']);
+                    $queryStringAll = "SELECT * FROM products WHERE product_title LIKE '%$txtSearch%'";
+                }
+
                 switch($currentFilter){
                     case(1):
                         $queryStringAll = $queryStringAll." AND is_product_new = true";break;
