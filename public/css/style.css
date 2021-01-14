@@ -5,10 +5,16 @@
   color: #333333;
 }
 
+*:focus {
+    outline: none;
+}
+
+
 /* ----------------------------------------------------------------------------------- */
 
-.banner, .banner img{
-  width: 100%;
+.banner,
+.banner img {
+    width: 100%;
 }
 
 .container-horizontal {
@@ -90,9 +96,13 @@
   color: rgb(50, 115, 32);
 }
 
-.sale-rate{
-  visibility: hidden;
-  color: rgb(253, 62, 59);
+.sale-rate {
+    visibility: hidden;
+    color: rgb(253, 62, 59);
+}
+
+.sale-rate h4 {
+    font-weight: 600;
 }
 
 .main-area .items:hover {
@@ -110,9 +120,10 @@
   width: 100%;
 }
 
-.current-price{
-  color: rgb(169, 83, 111);
-  font-size: x-large;
+.current-price {
+    color: rgb(169, 83, 111);
+    font-size: x-large;
+    font-weight: 700;
 }
 
 .original-price{
@@ -156,19 +167,21 @@
 
 /* ----------------------------------------------------------------------------------- */
 /* STAR RATING */
-.rate a, .rate a:hover ~ a {
-  color: #222;
-  text-shadow: none;
-  transition: color 200ms,
-              text-shadow 200ms;
-  text-decoration: none;
-  transition-delay: 0;
-  font-size: 48px;
+
+.rate a,
+.rate a:hover~a {
+    color: #222;
+    text-shadow: none;
+    transition: color 200ms, text-shadow 200ms;
+    text-decoration: none;
+    transition-delay: 0;
+    font-size: 48px;
 }
 
-.rate:hover a, .rate .active {
-  color: #fc0;
-  text-shadow: #fc0 0 0 20px;
+.rate:hover a,
+.rate .active {
+    color: #fc0;
+    text-shadow: #fc0 0 0 20px;
 }
 
 .rate:hover i:nth-child(2) {

@@ -95,9 +95,10 @@
                         <img src="images/<?php echo $productIMG ?>">
                         <div class="hide-on-hover">
                             <p class="product-name"><?php echo $productName ?></p>
-                            <p class="product-price"><span class="current-price"><?php echo $productPrice ?></span> <span class="original-price"><?php echo $originalPrice ?></span> vnd/kg</p>
-                            <p class="star-rate"><span class="star1">☆</span class="star2"><span class="star3">☆</span><span class="star4">☆</span><span>☆</span><span class="star5">☆</span>
-                            </p>
+                            <p class="product-price">
+                                <span class="current-price"><?php echo $productPrice ?></span>
+                                <span class="original-price"><?php echo $originalPrice ?></span> vnd/kg</p>
+                            <p class="star-rate"><span class="star1">☆</span><span class="star2">☆</span><span class="star3">☆</span><span class="star4">☆</span><span class="star5">☆</span></p>
                         </div>
                     </a>
                 </div>
@@ -106,12 +107,36 @@
             ?>
             </div>
             <div class="pages">
-                <a href="?<?php echo update_param('page',1) ?>"><div class="page-buttons"><div class="overlay">&lt;&lt;</div></div></a>
-                <a href="?<?php echo update_param('page',($currentPage>1)?$currentPage-1:1) ?>"><div class="page-buttons"><div class="overlay">&lt;</div></div></a>
-                <a href="?<?php echo update_param('page',$currentPage-2) ?>" <?php if($currentPage<=2){?>style="display:none"<?php }?>><div class="page-buttons"><div class="overlay"><?php echo $currentPage-2 ?></div></div></a>
-                <a href="?<?php echo update_param('page',$currentPage-1) ?>" <?php if($currentPage<=1){?>style="display:none"<?php }?>><div class="page-buttons"><div class="overlay"><?php echo $currentPage-1 ?></div></div></a>
-                <a href=""><div class="page-buttons current-page-buttons"><div class="overlay"><?php echo $currentPage ?></div></div></a>
-                <a href="?<?php echo update_param('page',$currentPage+1) ?>" <?php if($currentPage+1>$maxPage){?>style="display:none"<?php }?>><div class="page-buttons"><div class="overlay"><?php echo $currentPage+1 ?></div></div></a>
+                <a href="?<?php echo update_param('page',1) ?>">
+                    <div class="page-buttons">
+                        <div class="overlay">&lt;&lt;</div>
+                    </div>
+                </a>
+                <a href="?<?php echo update_param('page',($currentPage>1)?$currentPage-1:1) ?>">
+                    <div class="page-buttons">
+                        <div class="overlay">&lt;</div>
+                    </div>
+                </a>
+                <a href="?<?php echo update_param('page',$currentPage-2) ?>" <?php if($currentPage<=2){?>style="display:none"<?php }?>>
+                    <div class="page-buttons">
+                        <div class="overlay"><?php echo $currentPage-2 ?></div>
+                    </div>
+                </a>
+                <a href="?<?php echo update_param('page',$currentPage-1) ?>" <?php if($currentPage<=1){?>style="display:none"<?php }?>>
+                    <div class="page-buttons">
+                        <div class="overlay"><?php echo $currentPage-1 ?></div>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="page-buttons current-page-buttons">
+                        <div class="overlay"><?php echo $currentPage ?></div>
+                    </div>
+                </a>
+                <a href="?<?php echo update_param('page',$currentPage+1) ?>" <?php if($currentPage+1>$maxPage){?>style="display:none"<?php }?>>
+                    <div class="page-buttons">
+                        <div class="overlay"><?php echo $currentPage+1 ?></div>
+                    </div>
+                </a>
                 <a href="?<?php echo update_param('page',$currentPage+2) ?>" <?php if($currentPage+2>$maxPage){?>style="display:none"<?php }?>><div class="page-buttons"><div class="overlay"><?php echo $currentPage+2 ?></div></div></a>
                 <a href="?<?php echo update_param('page',($currentPage<$maxPage)?$currentPage+1:$maxPage) ?>"><div class="page-buttons"><div class="overlay">&gt;</div></div></a>
                 <a href="?<?php echo update_param('page',$maxPage) ?>"><div class="page-buttons"><div class="overlay">&gt;&gt;</div></div></a>

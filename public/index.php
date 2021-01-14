@@ -2,6 +2,7 @@
 
 <?php include(TEMPLATE_FRONT . DS . "header.php") ?>
 
+<?php include(TEMPLATE_FRONT . DS . "main-banner.php") ?>
 
 <div class="sub_info">
           <div class="row">
@@ -57,13 +58,25 @@
         </div>
 
         <div class="product-slider">
-          <h3>NÔNG SẢN MỚI</h3>
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 subtitle">
+              <img src="images/logo_hinh.png" alt="">
+              <h3>NÔNG SẢN MỚI</h3>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+          <!-- <div class="subtitle">
+            <img src="images/logo_hinh.png" alt="">
+            <h3>NÔNG SẢN MỚI</h3>
+          </div> -->
+          
           <div class="row">
             <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
                     <div class="MultiCarousel-inner">
 
                     <?php 
-                        $query = query("SELECT * FROM products");
+                        $query = query("SELECT * FROM products WHERE is_product_new = 1");
                         confirm($query);
 
                         while($row = fetch_array($query)):
@@ -75,149 +88,43 @@
                             $productPrice = $row['product_current_price'];
                             $originalPrice = $row['product_original_price'];
                             $productIMG = $row['product_image'];
-                            $rating = $row['product_rate'];
+                            $unit = $row['product_price_unit'];
+
                     ?>
+
+                          
+                        
                         <div class="item">
+                          <div class="row">
+                            <div class="col-md-6 item-right">
+                              <div class="is-new" <?php if($isNew){?>style="visibility:visible"<?php }?>>
+                                  <h5>MỚI</h5>
+                              </div>
+                            </div>
+                            <div class="col-md-6 item-left">
+                              <div class="sale-rate" <?php if($isSale){?>style="visibility:visible"<?php }?>>
+                                  <h4>-<?php echo number_format($saleRate) ?>%</h4> 
+                              </div>
+                            </div>
+                          </div>
                             <a href="item.php?id=<?php echo $row['product_id']?>">
                             <div class="pad15">
-                                <!-- <p class="lead">Multi Item Carousel</p> -->
                                 <img src="images/<?php echo $productIMG ?>" alt="">
                                 <p class="p-name"><?php echo $productName ?></p>
-                                <p><?php echo $originalPrice ?></p>
-                                <p><?php echo $productPrice ?></p>
-                                <p><?php echo $saleRate ?></p>
+                                
                             </div>
                             </a>
+                            <p class="product-price">
+                                <span class="current-price"><?php echo $productPrice ?></span>
+                                <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
+                                <p class="star-rate"><span class="star1">☆</span><span class="star2">☆</span><span class="star3">☆</span><span class="star4">☆</span><span class="star5">☆</span></p>
                         </div>
 
                         <?php endwhile ?>
 
-                        <!-- <div class="item">
-                            <div class="pad15">
-                                <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="pad15">
-                                <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                                <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="pad15">
-                              <img src="images/banana.jpg" alt="">
-                                <p>₹ 1</p>
-                                <p>₹ 6000</p>
-                                <p>50% off</p>
-                            </div>
-                        </div> -->
-
                     </div>
-                    <button class="btn btn-primary leftLst"><</button>
-                    <button class="btn btn-primary rightLst">></button>
+                    <button class="btn btn-primary leftLst"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn btn-primary rightLst"><i class="fas fa-chevron-right"></i></button>
             </div>
           </div>
         </div>
@@ -237,292 +144,124 @@
 
         <div class="product-sale">
           <div class="row">
-            <div class="col-md-3">
-              <h3>KHUYẾN MÃI</h3>
+            <div class="col-md-2">
+              <!-- <h3>KHUYẾN MÃI</h3> -->
+              <img src="images/banner-3.jpg" alt="" style="margin-bottom: 24px">
               <img src="images/banner-3.jpg" alt="">
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
               <div class="row">
-                <h3>NÔNG SẢN BÁN CHẠY</h3>
-                <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+              <img src="images/logo_hinh.png" alt="" style="width: 48px;">
+                <h3>NÔNG SẢN GIẢM SÂU</h3>
+                <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000" style="margin-top: 24px;">
                         <div class="MultiCarousel-inner">
-                            <div class="item">
-                                <div class="pad15">
-                                    <!-- <p class="lead">Multi Item Carousel</p> -->
-                                    <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
+                        <?php
+
+                        $query = query("SELECT * FROM products WHERE is_product_sale = 1 HAVING product_current_price/product_original_price < 0.65 ");
+                        confirm($query);
+
+                        while($row = fetch_array($query)):
+                            $productID = $row['product_id'];
+                            $isNew = $row['is_product_new'];
+                            $isSale = $row['is_product_sale'];
+                            $saleRate = 100 - $row['product_current_price']/$row['product_original_price']*100;
+                            $productName = $row['product_title'];
+                            $productPrice = $row['product_current_price'];
+                            $originalPrice = $row['product_original_price'];
+                            $productIMG = $row['product_image'];
+                            $unit = $row['product_price_unit'];
+
+                    ?>
+                    <div class="item">
+                          <div class="row">
+                            <div class="col-md-6 item-right">
+                              <div class="is-new" <?php if($isNew){?>style="visibility:visible"<?php }?>>
+                                  <h5>MỚI</h5>
+                              </div>
                             </div>
-    
-                            <div class="item">
-                                <div class="pad15">
-                                    <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
+                            <div class="col-md-6 item-left">
+                              <div class="sale-rate" <?php if($saleRate){?>style="visibility:visible"<?php }?>>
+                                  <h4>-<?php echo number_format($saleRate) ?>%</h4> 
+                              </div>
                             </div>
-    
-                            <div class="item">
-                                <div class="pad15">
-                                    <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
+                          </div>
+                            <a href="item.php?id=<?php echo $row['product_id']?>">
+                            <div class="pad15">
+                                <img src="images/<?php echo $productIMG ?>" alt="">
+                                <p class="p-name"><?php echo $productName ?></p>
+                                
                             </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-    
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-    
+                            </a>
+                            <p class="product-price">
+                                <span class="current-price"><?php echo $productPrice ?></span>
+                                <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
+                                <p class="star-rate"><span class="star1">☆</span><span class="star2">☆</span><span class="star3">☆</span><span class="star4">☆</span><span class="star5">☆</span></p>
                         </div>
-                        <button class="btn btn-primary leftLst"><</button>
-                        <button class="btn btn-primary rightLst">></button>
+
+                        <?php endwhile ?>
+
+                        </div>
+                        <button class="btn btn-primary leftLst"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn btn-primary rightLst"><i class="fas fa-chevron-right"></i></button>
                 </div>
               </div>
-              <div class="row">
-                <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+
+
+              <div class="row" style="margin-top: 24px;">
+              <img src="images/logo_hinh.png" alt="" style="width: 48px;">
+                <h3>NÔNG SẢN BÁN CHẠY</h3>
+                <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000" style="margin-top: 24px;">
                         <div class="MultiCarousel-inner">
-                            <div class="item">
-                                <div class="pad15">
-                                    <!-- <p class="lead">Multi Item Carousel</p> -->
-                                    <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
+                        <?php 
+                        $query = query("SELECT * FROM products JOIN rating ON products.product_id = rating.product_id WHERE rating.star >= 4");
+                        confirm($query);
+
+                        // $query = query("SELECT * FROM products JOIN rating ON products.product_id = rating.product_id WHERE rating >= 4");
+                        // confirm($query);
+
+                        while($row = fetch_array($query)):
+                            $productID = $row['product_id'];
+                            $isNew = $row['is_product_new'];
+                            $isSale = $row['is_product_sale'];
+                            $saleRate = 100 - $row['product_current_price']/$row['product_original_price']*100;
+                            $productName = $row['product_title'];
+                            $productPrice = $row['product_current_price'];
+                            $originalPrice = $row['product_original_price'];
+                            $productIMG = $row['product_image'];
+                            $unit = $row['product_price_unit'];
+
+                    ?>
+                    <div class="item">
+                          <div class="row">
+                            <div class="col-md-6 item-right">
+                              <div class="is-new" <?php if($isNew){?>style="visibility:visible"<?php }?>>
+                                  <h5>MỚI</h5>
+                              </div>
                             </div>
-    
-                            <div class="item">
-                                <div class="pad15">
-                                    <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
+                            <div class="col-md-6 item-left">
+                              <div class="sale-rate" <?php if($isSale){?>style="visibility:visible"<?php }?>>
+                                  <h4>-<?php echo number_format($saleRate) ?>%</h4> 
+                              </div>
                             </div>
-    
-                            <div class="item">
-                                <div class="pad15">
-                                    <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
+                          </div>
+                            <a href="item.php?id=<?php echo $row['product_id']?>">
+                            <div class="pad15">
+                                <img src="images/<?php echo $productIMG ?>" alt="">
+                                <p class="p-name"><?php echo $productName ?></p>
+                                
                             </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                    <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
-    
-                            <div class="item">
-                                <div class="pad15">
-                                  <img src="images/banana.jpg" alt="">
-                                    <p>₹ 1</p>
-                                    <p>₹ 6000</p>
-                                    <p>50% off</p>
-                                </div>
-                            </div>
+                            </a>
+                            <p class="product-price">
+                                <span class="current-price"><?php echo $productPrice ?></span>
+                                <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
+                                <p class="star-rate"><span class="star1">☆</span><span class="star2">☆</span><span class="star3">☆</span><span class="star4">☆</span><span class="star5">☆</span></p>
+                        </div>
+
+                        <?php endwhile ?>
     
                         </div>
-                        <button class="btn btn-primary leftLst"><</button>
-                        <button class="btn btn-primary rightLst">></button>
+                        <button class="btn btn-primary leftLst"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn btn-primary rightLst"><i class="fas fa-chevron-right"></i></button>
                 </div>
               </div>
             </div>
