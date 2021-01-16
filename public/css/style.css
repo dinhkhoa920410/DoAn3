@@ -134,7 +134,7 @@
 
 /* ---------------------------------------------------------------------------------------------- */
 
-.main-area .pages{
+.pages{
   margin-right: 3%;
   display: flex;
   justify-content: flex-end;
@@ -227,16 +227,29 @@
   margin: 10px;
 }
 .vertical-ad-banner img{
-  padding: 20px;
+  padding: 10px 0;
   width: 100%;
 }
 .border{
-  
   border: 1px solid black;
 }
 .thumbnail-img{
   width: 100%;
 }
 .news-element{
-  margin: 30px;
+  margin: 20px 0;
+}
+
+.news-element:hover .news-title{
+  color: rgb(67, 153, 42);
+}
+.news-date{
+  font-size: smaller;
+  color: gray;
+}
+.other-news a{
+  color: gray;
+}
+.other-news a:hover{
+  color: rgb(67, 153, 42);
 }

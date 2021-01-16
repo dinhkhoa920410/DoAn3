@@ -15,12 +15,12 @@
                         $categoryID = $row['cat_id'];
                         $categoryName = $row['cat_title'];
                 ?>
-                    <li><a href="?<?php echo update_param('cat',$categoryID) ?>"><?php echo $categoryName ?></a></li>
+                    <li><a href="?cat=<?php echo $categoryID ?>"><?php echo $categoryName ?></a></li>
                 <?php endwhile; ?>
             </ul>
 
             <?php 
-                $currentFilter = $currentPage = escape_string($_GET['filter']);;
+                $currentFilter = isset($_GET['filter']) ? escape_string($_GET['filter']) : 0;
             ?>
             <ul class="filters"><h4>Bộ lọc</h4>
             
@@ -45,7 +45,7 @@
             <div class="products-list">
             <?php
                 $numberOfItemPerPage = 10;
-                $currentPage = escape_string($_GET['page']);
+                $currentPage = isset($_GET['page']) ? escape_string($_GET['page']) : 1;
                 
                 
                 $showProductFrom = ($currentPage-1)*$numberOfItemPerPage;
@@ -68,7 +68,7 @@
                         $queryStringAll = $queryStringAll." AND is_product_sale = true";break;
                 }
                 $maxPage = getMaxPage($queryStringAll, $numberOfItemPerPage);
-                $queryStringShowing = $queryStringAll." limit $showProductFrom, $numberOfItemPerPage";
+                $queryStringShowing = $queryStringAll." LIMIT $showProductFrom, $numberOfItemPerPage";
                 $query = query($queryStringShowing);
                 
                 while($row = fetch_array($query)):
