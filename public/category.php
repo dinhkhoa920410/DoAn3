@@ -2,6 +2,8 @@
 
 <?php include(TEMPLATE_FRONT . DS . "header.php") ?>
 
+<?php include(TEMPLATE_FRONT . DS . "main-banner.php") ?>
+
 <!-- Page Content -->
 <div class="container-horizontal">
         <!-- Side Area -->
@@ -92,6 +94,8 @@
                                 -<?php echo $saleRate ?>%
                             </div>
                         </div>
+
+                        <a href="item.php?id=<?php echo $row['product_id'] ?>">
                         <img src="images/<?php echo $productIMG ?>">
                         <div class="hide-on-hover">
                             <p class="product-name"><?php echo $productName ?></p>
@@ -101,7 +105,34 @@
                             <p class="star-rate"><span class="star1">☆</span><span class="star2">☆</span><span class="star3">☆</span><span class="star4">☆</span><span class="star5">☆</span></p>
                         </div>
                     </a>
-                </div>
+                </div> -->
+
+                <div class="item">
+                          <div class="row">
+                            <div class="col-md-6 item-right">
+                              <div class="is-new" <?php if($isNew){?>style="visibility:visible"<?php }?>>
+                                  <h5>MỚI</h5>
+                              </div>
+                            </div>
+                            <div class="col-md-6 item-left">
+                              <div class="sale-rate" <?php if($saleRate){?>style="visibility:visible"<?php }?>>
+                                  <h4>-<?php echo number_format($saleRate) ?>%</h4> 
+                              </div>
+                            </div>
+                          </div>
+                            <a href="item.php?id=<?php echo $row['product_id']?>">
+                            <div class="pad15">
+                                <img src="images/<?php echo $productIMG ?>" alt="">
+                                <p class="p-name"><?php echo $productName ?></p>
+                                
+                            </div>
+                            </a>
+                            <p class="product-price">
+                                <span class="current-price"><?php echo $productPrice ?></span>
+                                <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
+                                <p class="star-rate"><span class="star1">☆</span><span class="star2">☆</span><span class="star3">☆</span><span class="star4">☆</span><span class="star5">☆</span></p>
+                        </div>
+
             <?php
                 endwhile;
             ?>
