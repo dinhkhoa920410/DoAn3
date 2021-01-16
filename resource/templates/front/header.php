@@ -17,8 +17,9 @@
     crossorigin="anonymous"/>
     
     <link href="css/shop-homepage.css" rel="stylesheet">
-    <link href="css/homepage.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/homepage.css" rel="stylesheet">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -52,10 +53,24 @@
                         <div class="dropdown">
                             <div class="dropbtn"><span><i class="fas fa-bars"></i></span>DANH MỤC NÔNG SẢN</div>
                             <div class="dropdown-content">
-                                <a href="#">Rau củ quả <span>(25)</span></a>
-                                <a href="#">Hải sản <span>(25)</span></a>
-                                <a href="#">Thịt <span>(25)</span></a>
-                                <a href="#">Gạo và thực phẩm khác <span>(25)</span></a>
+
+                            <?php 
+                                $queryString = "SELECT product_category_id, cat_title, cat_id, COUNT(product_id) AS total FROM products JOIN categories 
+                                ON categories.cat_id = products.product_category_id GROUP BY product_category_id ";
+                                $query = query($queryString);
+
+                                while($row = fetch_array($query)):
+                                    $productCatID = $row['product_category_id'];
+                                    $total = $row['total'];
+                                    $categoryName = $row['cat_title'];
+                                    $categoryID = $row['cat_id'];
+                                    
+                            ?>
+                                <a href="category.php?cat=<?php echo $categoryID?>&page=1&filter=0"><?php echo $categoryName?> <span>(<?php echo $total?>)</span></a>
+
+                                <?php endwhile ?>
+
+                                
                             </div>
                         </div>
                     </div>
