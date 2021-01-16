@@ -196,19 +196,11 @@
                                 <span class="current-price"><?php echo $productPrice ?></span>
                                 <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
                                 <p class="star-rate"><span class="star1">☆</span><span class="star2">☆</span><span class="star3">☆</span><span class="star4">☆</span><span class="star5">☆</span></p>
-<<<<<<< HEAD
                         </div>
 
                         <?php endwhile ?>
 
                         </div>
-=======
-                        </div>
-
-                        <?php endwhile ?>
-
-                        </div>
->>>>>>> 3532bc58cbacb52ce6bfdd72dc04af554a9d196e
                         <button class="btn btn-primary leftLst"><i class="fas fa-chevron-left"></i></button>
                     <button class="btn btn-primary rightLst"><i class="fas fa-chevron-right"></i></button>
                 </div>
@@ -221,21 +213,9 @@
                 <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000" style="margin-top: 24px;">
                         <div class="MultiCarousel-inner">
                         <?php 
-<<<<<<< HEAD
-                        // $query = query("SELECT * FROM products");
-                        // confirm($query);
-
                         $query = query("SELECT * FROM products JOIN rating ON products.product_id = rating.product_id WHERE rating.star >= 4");
                         confirm($query);
 
-=======
-                        $query = query("SELECT * FROM products JOIN rating ON products.product_id = rating.product_id WHERE rating.star >= 4");
-                        confirm($query);
-
-                        // $query = query("SELECT * FROM products JOIN rating ON products.product_id = rating.product_id WHERE rating >= 4");
-                        // confirm($query);
-
->>>>>>> 3532bc58cbacb52ce6bfdd72dc04af554a9d196e
                         while($row = fetch_array($query)):
                             $productID = $row['product_id'];
                             $isNew = $row['is_product_new'];

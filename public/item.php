@@ -8,18 +8,18 @@
     <!-- Side Navigation -->
 
     <?php 
-        $query = query("SELECT * FROM products WHERE product_id = " . escape_string($_GET['id']));
+        $query = query("SELECT * FROM product_info WHERE product_id = " . escape_string($_GET['id']));
         confirm($query);
         $row = fetch_array($query);
         $productID = $row['product_id'];
         $isNew = $row['is_product_new'];
         $isSale = $row['is_product_sale'];
-        $saleRate = 100 - $row['product_current_price']/$row['product_original_price']*100;
+        $saleRate = round(100 - $row['product_current_price']/$row['product_original_price']*100);
         $productName = $row['product_title'];
         $productPrice = $row['product_current_price'];
         $originalPrice = $row['product_original_price'];
         $productIMG = $row['product_image'];
-        $rating = $row['product_rate'];
+        $rating = $row['product_star'];
         $shortDesc = $row['short_desc'];
         $productDescription = $row['product_description'];
     ?>
@@ -32,9 +32,17 @@
         <div class="row">
 
             <div class="col-md-7">
-
-                <img class="img-responsive" src="images/<?php echo $row['product_image']; ?>" alt="">
-
+                <div class="img-container img-responsive">
+                    <div class="item-header">
+                        <div class="is-new" <?php if($isNew){?>style="visibility:visible"<?php }?>>
+                            MỚI
+                        </div>
+                        <div class="sale-rate" <?php if($isSale){?>style="visibility:visible"<?php }?>>
+                            -<?php echo $saleRate ?>%
+                        </div>
+                    </div>
+                    <img class="img-responsive" src="images/<?php echo $row['product_image']; ?>" alt="">
+                </div>
             </div>
 
             <div class="col-md-5">
@@ -48,15 +56,16 @@
                         
 
                         <div class="ratings">
-
-                            <p>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                4.0 stars
-                            </p>
+                            <h2>
+                                <span class="rate">
+                                    <i class="star1 <?php if($rating>=1){?>active<?php }?>">★</i>
+                                    <i class="star2 <?php if($rating>=2){?>active<?php }?>">★</i>
+                                    <i class="star3 <?php if($rating>=3){?>active<?php }?>">★</i>
+                                    <i class="star4 <?php if($rating>=4){?>active<?php }?>">★</i>
+                                    <i class="star5 <?php if($rating>=5){?>active<?php }?>">★</i>
+                                </span>
+                                <?php echo $rating;?>
+                            </h2>
                         </div>
 
                         <span class="current-price"><?php echo $productPrice; ?></span>
@@ -102,7 +111,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="profile">
-                        <div class="col-md-6">
+                        <div class="col-md-6  scroll-vertical">
                         <?php
                             $numberCommentsPerPage = 5;
                             $query = query("SELECT * FROM rating WHERE product_id = " . escape_string($_GET['id']));
@@ -113,7 +122,7 @@
                                 $dateTime = $row['datetime']
                         ?>
                             <hr>
-                            <div class="row scroll-vertical">
+                            <div class="row">
                                 <div class="col-md-12">
                                     <h3><?php echo $userID ?></h3>
                                     <span class="rate">

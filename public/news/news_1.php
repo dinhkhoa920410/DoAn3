@@ -3,7 +3,7 @@
 <?php include(TEMPLATE_FRONT . DS . "header.php") ?>
 
 <!-- Page Content -->
-<div class="container-horizontal">
+<div class="container">
     <div class="col-md-2">
         <div class="vertical-ad-banner">
             <img src="../images/banner-3.jpg">
@@ -40,11 +40,11 @@
             </div>
         </div>
     </div>
-</div>
     <div class="col-md-2">
         <div class="vertical-ad-banner">
             <img src="../images/banner-3.jpg">
             <img src="../images/banner-3.jpg">
         </div>
     </div>
+</div>
 </div>

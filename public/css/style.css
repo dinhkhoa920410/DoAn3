@@ -92,19 +92,31 @@
     margin: 0 15px;
 }
 
-.item-header {
-    display: flex;
-    justify-content: space-between;
-}
-
 .is-new {
     visibility: hidden;
+    position: absolute;
+    top: 5px;
     color: rgb(50, 115, 32);
+    border-top-right-radius: 15px ;
+    border-bottom-right-radius: 15px ;
+    padding-right: 5px;
+    line-height: 30px;
+}
+
+.image-container{
+    position: relative;
 }
 
 .sale-rate {
     visibility: hidden;
+    position: absolute;
     color: rgb(253, 62, 59);
+    top: 7px;
+    right: 0;
+    border-top-left-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    padding-left: 5px;
+    line-height: 30px;
 }
 
 .sale-rate h4 {
@@ -241,9 +253,9 @@
 /* ITEM */
 
 .scroll-vertical {
+    height: 400px;
     overflow: auto;
 }
-
 
 /* ----------------------------------------------------------------------------------- */
 
@@ -258,14 +270,9 @@
   padding: 10px 0;
   width: 100%;
 }
-<<<<<<< HEAD
 
-.border {
-    border: 1px solid black;
-=======
 .border{
   border: 1px solid black;
->>>>>>> 3532bc58cbacb52ce6bfdd72dc04af554a9d196e
 }
 
 .thumbnail-img {

@@ -54,11 +54,11 @@
                 
                 if(!isset($_GET['search'])){
                     $filterCatID = escape_string($_GET['cat']);
-                    $queryStringAll = "SELECT * FROM products WHERE product_category_id = $filterCatID";
+                    $queryStringAll = "SELECT * FROM product_info WHERE product_category_id = $filterCatID";
                 }
                 else{
                     $txtSearch = escape_string($_GET['search']);
-                    $queryStringAll = "SELECT * FROM products WHERE product_title LIKE '%$txtSearch%'";
+                    $queryStringAll = "SELECT * FROM product_info WHERE product_title LIKE '%$txtSearch%'";
                 }
 
                 switch($currentFilter){
@@ -77,62 +77,48 @@
                     $productID = $row['product_id'];
                     $isNew = $row['is_product_new'];
                     $isSale = $row['is_product_sale'];
-                    $saleRate = 100 - $row['product_current_price']/$row['product_original_price']*100;
+                    $saleRate = round(100 - $row['product_current_price']/$row['product_original_price']*100);
                     $productName = $row['product_title'];
                     $productPrice = $row['product_current_price'];
                     $originalPrice = $row['product_original_price'];
                     $productIMG = $row['product_image'];
-                    $rating = $row['product_rate'];
+                    $rating = $row['product_star'] ? $row['product_star'] : 0;
+                    $unit = $row['product_price_unit']
             ?>
                 <div class="items">
-                    <a href="item.php?id=<?php echo $row['product_id'] ?>">
-                        <div class="item-header">
-                            <div class="is-new" <?php if($isNew){?>style="visibility:visible"<?php }?>>
-                                <h5>MỚI</h5>
-                            </div>
-                            <div class="sale-rate" <?php if($isSale){?>style="visibility:visible"<?php }?>>
-                                -<?php echo $saleRate ?>%
-                            </div>
-                        </div>
+                        
 
                         <a href="item.php?id=<?php echo $row['product_id'] ?>">
-                        <img src="images/<?php echo $productIMG ?>">
+                        <div class="image-container">
+                            <div class="item-header">
+                                <div class="is-new" <?php if($isNew){?>style="visibility:visible"<?php }?>>
+                                    MỚI
+                                </div>
+                                <div class="sale-rate" <?php if($isSale){?>style="visibility:visible"<?php }?>>
+                                    -<?php echo $saleRate ?>%
+                                </div>
+                            </div>
+                            <img src="images/<?php echo $productIMG ?>">
+                        </div>
                         <div class="hide-on-hover">
                             <p class="product-name"><?php echo $productName ?></p>
                             <p class="product-price">
                                 <span class="current-price"><?php echo $productPrice ?></span>
-                                <span class="original-price"><?php echo $originalPrice ?></span> vnd/kg</p>
-                            <p class="star-rate"><span class="star1">☆</span><span class="star2">☆</span><span class="star3">☆</span><span class="star4">☆</span><span class="star5">☆</span></p>
+                                <span class="original-price"><?php echo $originalPrice ?></span> vnd/ <?php echo $unit?></p>
+                            <p class="star-rate">
+                                <span class="rate">
+                                    <i class="star1 <?php if($rating>=1){?>active<?php }?>">★</i>
+                                    <i class="star2 <?php if($rating>=2){?>active<?php }?>">★</i>
+                                    <i class="star3 <?php if($rating>=3){?>active<?php }?>">★</i>
+                                    <i class="star4 <?php if($rating>=4){?>active<?php }?>">★</i>
+                                    <i class="star5 <?php if($rating>=5){?>active<?php }?>">★</i>
+                                </span>
+                                <?php echo $rating;?>
+                            </p>
                         </div>
-                    </a>
-                </div> -->
+                </div>
 
-                <div class="item">
-                          <div class="row">
-                            <div class="col-md-6 item-right">
-                              <div class="is-new" <?php if($isNew){?>style="visibility:visible"<?php }?>>
-                                  <h5>MỚI</h5>
-                              </div>
-                            </div>
-                            <div class="col-md-6 item-left">
-                              <div class="sale-rate" <?php if($saleRate){?>style="visibility:visible"<?php }?>>
-                                  <h4>-<?php echo number_format($saleRate) ?>%</h4> 
-                              </div>
-                            </div>
-                          </div>
-                            <a href="item.php?id=<?php echo $row['product_id']?>">
-                            <div class="pad15">
-                                <img src="images/<?php echo $productIMG ?>" alt="">
-                                <p class="p-name"><?php echo $productName ?></p>
-                                
-                            </div>
-                            </a>
-                            <p class="product-price">
-                                <span class="current-price"><?php echo $productPrice ?></span>
-                                <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
-                                <p class="star-rate"><span class="star1">☆</span><span class="star2">☆</span><span class="star3">☆</span><span class="star4">☆</span><span class="star5">☆</span></p>
-                        </div>
-
+                
             <?php
                 endwhile;
             ?>
