@@ -1,3 +1,7 @@
+<?php
+    $isLoggedin = isset($_SESSION['idLogin']);
+    $loggedinID = $isLoggedin ? $_SESSION['idLogin'] : "";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +13,7 @@
     rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" 
     crossorigin="anonymous"> -->
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" 
+    <link href="css/bootstrap.min.css" 
     rel="stylesheet" id="bootstrap-css">
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
@@ -40,7 +44,7 @@
                         </form>
                     </div>
                     <div class="col-md-3 sign-in">
-                      <a href="" class="sign-up-1">Đăng nhập</a>
+                      <a href="login.php" class="sign-up-1">Đăng nhập</a>
                       <a href="" class="sign-up-2">Đăng ký</a>
                     </div>
                 </div>

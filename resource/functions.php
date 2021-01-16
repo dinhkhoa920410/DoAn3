@@ -221,4 +221,47 @@ function getMaxPage($queryString, $numberOfItemPerPage){
 function onClickFilter($filterIndex){
     header("Location: ?"+update_param('filter', $filterIndex));
 }
+
+function addToCart($product_id, $number){
+    if(!isset($_SESSION["cart"])){
+        $arrCartProduct = [$product_id];
+        $arrCartCount = [$number];
+    }
+    else{
+        $arrCartProduct = $_SESSION["cart"];
+        $arrCartCount = $_SESSION["cart_count"];
+
+        $isDupe = false;
+        for($i = 0; $i<count($arrCartProduct); $i++){
+            if($arrCartProduct[$i] == $product_id){
+                $arrCartCount[$i] += $number;
+                $isDupe = true;
+            }
+        }
+        if(!$isDupe){
+            array_push($arrCartProduct, $product_id);
+            array_push($arrCartCount, $number);
+        }
+    }
+    
+    $_SESSION["cart"] = $arrCartProduct;
+    $_SESSION["cart_count"] = $arrCartCount;
+}
+
+function deleteFromCart($round){
+    if(isset($_SESSION["cart"])){
+        $arrCartProduct = $_SESSION["cart"];
+        $arrCartCount = $_SESSION["cart_count"];
+
+        unset($arrCartProduct[$round]);
+        unset($arrCartCount[$round]);
+        $arrCartProduct = array_values($arrCartProduct);
+        $arrCartCount = array_values($arrCartCount);
+        $_SESSION["cart"] = $arrCartProduct;
+        $_SESSION["cart_count"] = $arrCartCount;
+
+        $_SESSION["cart"] = $arrCartProduct;
+        $_SESSION["cart_count"] = $arrCartCount;
+    }
+}
 ?>

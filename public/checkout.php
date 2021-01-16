@@ -2,41 +2,61 @@
 
 <?php include(TEMPLATE_FRONT . DS . "header.php") ?>
 
+<?php
+    // unset($_SESSION['cart']);
+    // unset($_SESSION['cart_count']);
+    if(!$isLoggedin){
+        redirect("login.php");
+    }
+?>
     <!-- Page Content -->
     <div class="container">
-<?php
-    // $query = query("SELECT * FROM products WHERE product_id =" . escape_string($_GET['add']) . " ");
-    // confirm($query);
-    // echo ("product_id =" . escape_string($_GET['add']) . " "); 
-    $_SESSION['tao_thich'] = escape_string($_GET['add']);
-    
-    if(isset($_SESSION['tao_thich'])) echo $_SESSION['tao_thich'];
-?>
-<!-- /.row --> 
 
 <div class="row">
       <!-- <h4 class = "text-center bg-warning"><?php display_message() ?></h4> -->
       <h1>Checkout</h1>
 
-<form action="">
+<form action="cart.php" method="post">
     <table class="table table-striped">
         <thead>
           <tr>
            <th>Product</th>
            <th>Price</th>
            <th>Quantity</th>
-           <th>Sub-total</th>
      
           </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>apple</td>
-                <td>$23</td>
-                <td>3</td>
-                <td>2</td>
-              
+            <?php
+                $totalMoney = 0;
+                $countTotal = 0;
+                $arrCartProduct = isset($_SESSION["cart"]) ? $_SESSION["cart"] : [];
+                $arrCartCount = isset($_SESSION["cart_count"]) ? $_SESSION["cart_count"] : [];
+
+                for($i=0; $i<count($arrCartProduct); $i++){
+                    debug_to_console($arrCartProduct[0]);
+                    $id = $arrCartProduct[$i];
+                    $number = $arrCartCount[$i];
+                    
+                    $query = query("SELECT product_title, product_current_price FROM product_info WHERE product_id = $id");
+                    $row = fetch_array($query);
+                    
+                    $name = $row['product_title'];
+                    $price = $row['product_current_price'];
+                    $totalMoney += $price * $number;
+                    $countTotal += $number;
+            ?>
+            <tr id="pid_<?php echo $id ?>">
+                <td><?php echo $name ?></td>
+                <td><?php echo $price ?></td>
+                <td><?php echo $number ?></td>
+                <td>
+                    <button name="delete" value="<?php echo $i?>">Delete</button>
+                </td>
             </tr>
+            <?php
+                }
+            ?>
         </tbody>
     </table>
 </form>
@@ -52,7 +72,7 @@
 
 <tr class="cart-subtotal">
 <th>Items:</th>
-<td><span class="amount">4</span></td>
+<td><span class="amount"><?php echo $countTotal ?></span></td>
 </tr>
 <tr class="shipping">
 <th>Shipping and Handling</th>
@@ -61,7 +81,7 @@
 
 <tr class="order-total">
 <th>Order Total</th>
-<td><strong><span class="amount">$3444</span></strong> </td>
+<td><strong><span class="amount"><?php echo $totalMoney ?></span></strong> </td>
 </tr>
 
 

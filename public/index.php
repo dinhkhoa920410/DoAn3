@@ -4,6 +4,12 @@
 
 <?php include(TEMPLATE_FRONT . DS . "main-banner.php") ?>
 
+<?php
+    if($isLoggedin){
+        debug_to_console("KHOA");
+    }
+?>
+
 <div class="sub_info">
           <div class="row">
               <div class="col-md-3 sub_main">

@@ -12,7 +12,26 @@
             <form class="" action="" method="post" enctype="multipart/form-data">
 
                 <?php 
-                    login_user();
+                    if(isset($_POST['submit'])) {
+                        $username = escape_string($_POST['username']);
+                        $password = escape_string($_POST['password']);
+                
+                        $query = query("SELECT * FROM users WHERE username = '{$username}' AND password = '{$password}' ");
+                        confirm($query);
+                        
+                        if(mysqli_num_rows($query) == 0) {
+                            set_message("Your password or Username are wrong");
+                            redirect("login.php");
+                        } else {
+                            $row = fetch_array($query);
+                            $userID = $row['user_id'];
+                            set_message("Welcome to Admin {$username}");
+                            
+                            $_SESSION["idLogin"] = $userID;
+                            redirect("index.php");
+                        }
+                
+                    }
                 ?>
 
                 <div class="form-group"><label for="">

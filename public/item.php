@@ -22,6 +22,7 @@
         $rating = $row['product_star'];
         $shortDesc = $row['short_desc'];
         $productDescription = $row['product_description'];
+        $productRemain = $row['product_remain'];
     ?>
 
 
@@ -74,9 +75,22 @@
                         <p><?php echo $shortDesc; ?></p>
 
 
-                        <form action="">
+                        <form action="cart.php" method="POST">
                             <div class="form-group">
-                                <input type="submit" class="btn btn-primary" value="ADDTOCART">
+                                <input name="id" style="display: none" value=<?php echo $productID?>>
+                                <select name="number">
+                                    <optgroup label="Số lượng">
+                                        
+                                        <?php if($productRemain <= 0){ ?>
+                                            <option value=0>Hết hàng</option>
+                                        <?php } ?>
+                                        <?php for ($i = 1; $i <= $productRemain; $i++){?>
+                                            <option value=<?php echo $i?>><?php echo $i?></option>
+                                        <?php }?>
+                                    </optgroup>
+                                </select>
+                                <input type="submit" class="btn btn-primary" value="ADDTOCART"
+                                    <?php if($productRemain <= 0){?> disabled <?php } ?>>
                             </div>
                         </form>
 
