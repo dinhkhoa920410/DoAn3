@@ -2,10 +2,10 @@
 -- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 14, 2021 lúc 11:59 AM
--- Phiên bản máy phục vụ: 10.4.17-MariaDB
--- Phiên bản PHP: 7.4.13
+-- Host: 127.0.0.1
+-- Generation Time: Jan 16, 2021 at 11:07 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `ecom_db`
+-- Database: `ecom_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -33,7 +33,7 @@ CREATE TABLE `categories` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`cat_id`, `cat_title`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `categories` (`cat_id`, `cat_title`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `news`
+-- Table structure for table `news`
 --
 
 CREATE TABLE `news` (
@@ -57,7 +57,7 @@ CREATE TABLE `news` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `news`
+-- Dumping data for table `news`
 --
 
 INSERT INTO `news` (`news_id`, `news_title`, `short_desc`, `image`, `page`) VALUES
@@ -67,7 +67,7 @@ INSERT INTO `news` (`news_id`, `news_title`, `short_desc`, `image`, `page`) VALU
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
@@ -85,7 +85,7 @@ CREATE TABLE `products` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`product_id`, `product_title`, `product_category_id`, `is_product_new`, `is_product_sale`, `product_current_price`, `product_original_price`, `product_price_unit`, `product_description`, `short_desc`, `product_image`) VALUES
@@ -138,7 +138,28 @@ INSERT INTO `products` (`product_id`, `product_title`, `product_category_id`, `i
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `rating`
+-- Stand-in structure for view `product_info`
+-- (See below for the actual view)
+--
+CREATE TABLE `product_info` (
+`product_id` int(11)
+,`product_title` varchar(255)
+,`product_category_id` int(11)
+,`is_product_new` tinyint(1)
+,`is_product_sale` tinyint(1)
+,`product_current_price` double
+,`product_original_price` double
+,`product_price_unit` varchar(255)
+,`product_description` text
+,`short_desc` text
+,`product_image` varchar(255)
+,`product_star` decimal(36,4)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rating`
 --
 
 CREATE TABLE `rating` (
@@ -151,19 +172,20 @@ CREATE TABLE `rating` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `rating`
+-- Dumping data for table `rating`
 --
 
 INSERT INTO `rating` (`rating_id`, `product_id`, `user_id`, `star`, `comment`, `datetime`) VALUES
 (1, 1, 1, 5, 'Tot', '2021-01-10 13:48:42'),
 (2, 1, 2, 1, 'Te qua', '2021-01-13 13:48:59'),
 (3, 1, 3, 4, 'Hang chat luong', '2021-01-10 13:49:06'),
-(4, 2, 1, 5, 'Hang tot qua', '2021-01-10 13:49:11');
+(4, 2, 1, 5, 'Hang tot qua', '2021-01-10 13:49:11'),
+(6, 3, 1, 5, '2222', '2021-01-16 14:34:39');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -174,77 +196,86 @@ CREATE TABLE `users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`) VALUES
 (1, 'quangcanh', 'quangcanh@gmail.com', '123'),
 (2, 'quangtruong', 'quangtruong@gmail.com', '456');
 
+-- --------------------------------------------------------
+
 --
--- Chỉ mục cho các bảng đã đổ
+-- Structure for view `product_info`
+--
+DROP TABLE IF EXISTS `product_info`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_info`  AS  (select `p`.`product_id` AS `product_id`,`p`.`product_title` AS `product_title`,`p`.`product_category_id` AS `product_category_id`,`p`.`is_product_new` AS `is_product_new`,`p`.`is_product_sale` AS `is_product_sale`,`p`.`product_current_price` AS `product_current_price`,`p`.`product_original_price` AS `product_original_price`,`p`.`product_price_unit` AS `product_price_unit`,`p`.`product_description` AS `product_description`,`p`.`short_desc` AS `short_desc`,`p`.`product_image` AS `product_image`,sum(`r`.`star`) / count(`r`.`rating_id`) AS `product_star` from (`products` `p` left join `rating` `r` on(`p`.`product_id` = `r`.`product_id`)) group by `p`.`product_id`) ;
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`cat_id`);
 
 --
--- Chỉ mục cho bảng `news`
+-- Indexes for table `news`
 --
 ALTER TABLE `news`
   ADD PRIMARY KEY (`news_id`);
 
 --
--- Chỉ mục cho bảng `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`product_id`);
 
 --
--- Chỉ mục cho bảng `rating`
+-- Indexes for table `rating`
 --
 ALTER TABLE `rating`
   ADD PRIMARY KEY (`rating_id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `news`
+-- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
   MODIFY `news_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT cho bảng `rating`
+-- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `rating_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `rating_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
