@@ -259,9 +259,10 @@ function deleteFromCart($round){
         $arrCartCount = array_values($arrCartCount);
         $_SESSION["cart"] = $arrCartProduct;
         $_SESSION["cart_count"] = $arrCartCount;
-
-        $_SESSION["cart"] = $arrCartProduct;
-        $_SESSION["cart_count"] = $arrCartCount;
     }
 }
+
+
+
 ?>
+

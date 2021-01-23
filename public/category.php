@@ -8,26 +8,29 @@
 <div class="container-horizontal">
         <!-- Side Area -->
         <div class="side-area">
-            <ul><h2>DANH MỤC</h2>
+            <ul><h3 style="font-weight: 700; color: #78a204;"> <img src="images/logo_hinh.png" alt="" style="width:15%;"> DANH MỤC</h3>
                 <?php
-                    $queryString = "SELECT * FROM categories";
+                    $queryString = "SELECT product_category_id, cat_title, cat_id, COUNT(product_id) AS total FROM products JOIN categories 
+                    ON categories.cat_id = products.product_category_id GROUP BY product_category_id ";
                     $query = query($queryString);
                     
                     while($row = fetch_array($query)):
-                        $categoryID = $row['cat_id'];
+                        $productCatID = $row['product_category_id'];
+                        $total = $row['total'];
                         $categoryName = $row['cat_title'];
+                        $categoryID = $row['cat_id']
                 ?>
-                    <li><a href="?cat=<?php echo $categoryID ?>"><?php echo $categoryName ?></a></li>
+                    <li class="danh_muc" style="padding-bottom: 16px;"><a href="?cat=<?php echo $categoryID ?>"><?php echo $categoryName ?></a><span style="margin-left: 8px;">(<?php echo $total?>)</span></li>
                 <?php endwhile; ?>
             </ul>
 
             <?php 
                 $currentFilter = isset($_GET['filter']) ? escape_string($_GET['filter']) : 0;
             ?>
-            <ul class="filters"><h4>Bộ lọc</h4>
+            <ul class="filters"><h3 style="font-weight: 700; color: #78a204;"><img src="images/logo_hinh.png" alt="" style="width:15%; margin-right: 8px;">BỘ LỌC</h3>
             
-                <li>
-                    <a href="?<?php echo update_param('filter', 0)?>"><div class="filter-element"><input type="radio" name="filter" <?php if($currentFilter==0){?> checked<?php }?>> Tất cả</div></a>
+                <li style="padding-left: 16px;">
+                    <a href="?<?php echo update_param('filter', 0)?>"><div class="filter-element" style="padding: 0;"><input type="radio" name="filter" <?php if($currentFilter==0){?> checked<?php }?>> Tất cả</div></a>
                 </li>
                 <li>
                     <a href="?<?php echo update_param('filter', 1)?>"><div class="filter-element"><input type="radio" name="filter" <?php if($currentFilter==1){?> checked<?php }?>> Mới</div></a>
@@ -35,15 +38,20 @@
                 <li>
                     <a href="?<?php echo update_param('filter', 2)?>"><div class="filter-element"><input type="radio" name="filter" <?php if($currentFilter==2){?> checked<?php }?>> Bán chạy</div></a>
                 </li>
-                <li>
-                    <a href="?<?php echo update_param('filter', 3)?>"><div class="filter-element"><input type="radio" name="filter" <?php if($currentFilter==3){?> checked<?php }?>> Khuyến mãi</div></a>
+                <li style="border-bottom: none;">
+                    <a href="?<?php echo update_param('filter', 3)?>"><div class="filter-element" style="padding-left:16px;"><input type="radio" name="filter" <?php if($currentFilter==3){?> checked<?php }?>> Khuyến mãi</div></a>
                 </li>
             </ul>
         </div>
 
         <!-- Main Area -->
         <div class="main-area">
-            <div class="directory">abc</div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" style="font-size: 16px;">Danh mục nông sản</li>
+                </ol>
+            </nav>
             <div class="products-list">
             <?php
                 $numberOfItemPerPage = 10;
@@ -88,24 +96,26 @@
                 <div class="items">
                         
 
-                        <a href="item.php?id=<?php echo $row['product_id'] ?>">
+                        <a href="item.php?id=<?php echo $row['product_id']?>&star=0">
                         <div class="image-container">
                             <div class="item-header">
-                                <div class="is-new" <?php if($isNew){?>style="visibility:visible"<?php }?>>
+                                <div class="is-new" <?php if($isNew){?>style="visibility:visible; font-size:18px; font-weight:500;"<?php }?>>
                                     MỚI
                                 </div>
-                                <div class="sale-rate" <?php if($isSale){?>style="visibility:visible"<?php }?>>
+                                <div class="sale-rate" <?php if($isSale){?>style="visibility:visible; font-size:18px; font-weight:600;"<?php }?>>
                                     -<?php echo $saleRate ?>%
                                 </div>
                             </div>
                             <img src="images/<?php echo $productIMG ?>">
-                        </div>
-                        <div class="hide-on-hover">
                             <p class="product-name"><?php echo $productName ?></p>
-                            <p class="product-price">
+                        </div>
+                        </a>
+                        <div class="hide-on-hover" style="margin: 0;">
+                            
+                            <p class="product-price" style="padding-left: 0;">
                                 <span class="current-price"><?php echo $productPrice ?></span>
-                                <span class="original-price"><?php echo $originalPrice ?></span> vnd/ <?php echo $unit?></p>
-                            <p class="star-rate">
+                                <span class="original-price"><?php echo $originalPrice ?></span>&#8363;/<?php echo $unit?></p>
+                            <p class="star-rate" style="padding-left: 0;">
                                 <span class="rate">
                                     <i class="star1 <?php if($rating>=1){?>active<?php }?>">★</i>
                                     <i class="star2 <?php if($rating>=2){?>active<?php }?>">★</i>
@@ -113,7 +123,7 @@
                                     <i class="star4 <?php if($rating>=4){?>active<?php }?>">★</i>
                                     <i class="star5 <?php if($rating>=5){?>active<?php }?>">★</i>
                                 </span>
-                                <?php echo $rating;?>
+                                <!-- <?php echo $rating;?> -->
                             </p>
                         </div>
                 </div>

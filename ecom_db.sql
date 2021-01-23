@@ -2,10 +2,10 @@
 -- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 16, 2021 at 03:00 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th1 22, 2021 lúc 11:50 AM
+-- Phiên bản máy phục vụ: 10.4.17-MariaDB
+-- Phiên bản PHP: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ecom_db`
+-- Cơ sở dữ liệu: `ecom_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Cấu trúc bảng cho bảng `categories`
 --
 
 CREATE TABLE `categories` (
@@ -33,7 +33,7 @@ CREATE TABLE `categories` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `categories`
+-- Đang đổ dữ liệu cho bảng `categories`
 --
 
 INSERT INTO `categories` (`cat_id`, `cat_title`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `categories` (`cat_id`, `cat_title`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `news`
+-- Cấu trúc bảng cho bảng `news`
 --
 
 CREATE TABLE `news` (
@@ -57,7 +57,7 @@ CREATE TABLE `news` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `news`
+-- Đang đổ dữ liệu cho bảng `news`
 --
 
 INSERT INTO `news` (`news_id`, `news_title`, `short_desc`, `image`, `page`) VALUES
@@ -67,7 +67,7 @@ INSERT INTO `news` (`news_id`, `news_title`, `short_desc`, `image`, `page`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Cấu trúc bảng cho bảng `products`
 --
 
 CREATE TABLE `products` (
@@ -86,7 +86,7 @@ CREATE TABLE `products` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `products`
+-- Đang đổ dữ liệu cho bảng `products`
 --
 
 INSERT INTO `products` (`product_id`, `product_title`, `product_category_id`, `is_product_new`, `is_product_sale`, `product_current_price`, `product_original_price`, `product_price_unit`, `product_description`, `short_desc`, `product_image`, `product_remain`) VALUES
@@ -139,7 +139,7 @@ INSERT INTO `products` (`product_id`, `product_title`, `product_category_id`, `i
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `product_info`
+-- Cấu trúc đóng vai cho view `product_info`
 -- (See below for the actual view)
 --
 CREATE TABLE `product_info` (
@@ -161,7 +161,7 @@ CREATE TABLE `product_info` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rating`
+-- Cấu trúc bảng cho bảng `rating`
 --
 
 CREATE TABLE `rating` (
@@ -174,7 +174,7 @@ CREATE TABLE `rating` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `rating`
+-- Đang đổ dữ liệu cho bảng `rating`
 --
 
 INSERT INTO `rating` (`rating_id`, `product_id`, `user_id`, `star`, `comment`, `datetime`) VALUES
@@ -187,7 +187,51 @@ INSERT INTO `rating` (`rating_id`, `product_id`, `user_id`, `star`, `comment`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Cấu trúc bảng cho bảng `subscriber`
+--
+
+CREATE TABLE `subscriber` (
+  `subscriber_id` int(11) NOT NULL,
+  `sub_email` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `subscriber`
+--
+
+INSERT INTO `subscriber` (`subscriber_id`, `sub_email`) VALUES
+(1, 'lequangcanh@gmail.com'),
+(4, 'lequangtruong@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `supplier`
+--
+
+CREATE TABLE `supplier` (
+  `supplier_id` int(11) NOT NULL,
+  `supplier_name` varchar(255) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `supplier_short_desc` text NOT NULL,
+  `supplier_address` varchar(255) NOT NULL,
+  `supplier_phone` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `supplier`
+--
+
+INSERT INTO `supplier` (`supplier_id`, `supplier_name`, `cat_id`, `supplier_short_desc`, `supplier_address`, `supplier_phone`) VALUES
+(1, 'Thực phẩm Đồng Xanh', 1, 'Công ty Đồng Xanh cung cấp rau củ quả giá sỉ dịch vụ uy tín nhất. Chúng tôi luôn cam kết quy trình chuyên nghiệp cùng các sản phẩm cao cấp, đảm bảo mang đến sự hài lòng cho mọi khách hàng. Đặc biệt, nguồn hàng với số lượng lớn của chúng tôi luôn sẵn sàng phục vụ, đáp ứng mọi nhu cầu của quý khách hàng ngay cả trong những dịp cao điểm nhất.', '34/23 Hoàng Ngọc Phách, P. Phú Thọ Hoà, Q.Tân Phú, TP.HCM', 936685268),
+(2, 'Đảo Hải Sản', 2, 'Công ty Đồng Xanh cung cấp rau củ quả giá sỉ dịch vụ uy tín nhất. Chúng tôi luôn cam kết quy trình chuyên nghiệp cùng các sản phẩm cao cấp, đảm bảo mang đến sự hài lòng cho mọi khách hàng. Đặc biệt, nguồn hàng với số lượng lớn của chúng tôi luôn sẵn sàng phục vụ, đáp ứng mọi nhu cầu của quý khách hàng ngay cả trong những dịp cao điểm nhất.', 'A9 Nguyễn Sỹ Sách, P15, Quận Tân Bình', 19000098),
+(3, 'Công ty TNHH Xuất Nhập Khẩu Thực Phẩm Duy Anh', 3, 'Duy Anh - Đơn vị trên 10 năm kinh nghiệm sản xuất & cung cấp các loại thực phẩm ăn liền làm từ gạo, như: Bánh tráng, bún gạo, bún bò huế, phở gạo, phở bột lọc, hủ tiếu nam vang, bánh canh, bún vắt vuông, bún ăn liền, bánh hỏi, phở ăn liền,..', '368/4 Tỉnh Lộ 15, Ấp Bến Cỏ, X. Phú Hòa Đông, H. Củ Chi, Tp. Hồ Chí Minh (TPHCM)', 903646487),
+(4, 'Vựa gạo An Bình Phát', 4, 'Đại lý gạo An Bình Phát trên 15 năm cung cấp các loại gạo ngon, gạo sạch, gạo giá sỉ, gạo từ thiện tại TPHCM. Cùng với đó là dịch vụ giao gạo tận nhà tiện lợi, nhanh chóng cho khách hàng.Là một thành phố lớn và đông dân nên nhu cầu về các loại gạo ngon, gạo sạch tại Thành phố Hồ Chí Minh (tphcm) là rất lớn. Do đó mà có không ít đại lý, vựa gạo tại tphcm ra đời. Tuy nhiên bên cạnh những đơn vị kinh doanh uy tín thì cũng có không ít cơ sở vì chạy theo lợi nhuận mà làm ăn gian dối, cung cấp gạo không đảm bảo chất lượng.', '175 Khuông Việt, Phường Phú Trung, Quận Tân Phú, Tp. Hồ Chí Minh', 972697381);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `users`
 --
 
 CREATE TABLE `users` (
@@ -198,89 +242,118 @@ CREATE TABLE `users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `users`
+-- Đang đổ dữ liệu cho bảng `users`
 --
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`) VALUES
 (1, 'quangcanh', 'quangcanh@gmail.com', '123'),
-(2, 'quangtruong', 'quangtruong@gmail.com', '456');
+(2, 'quangtruong', 'quangtruong@gmail.com', '456'),
+(8, 'nguyendinhkhoa', 'dinhkhoa@gmail.com', '456789'),
+(6, 'lethithuytrang', 'trangthuy@gmail.com', '789456'),
+(7, 'nguyendinhkhoa', 'dinhkhoa@gmail.com', '456789'),
+(9, 'mykieu', 'mykieu@gmail.com', '147258'),
+(10, 'tienhoang', 'tienhoang@gmail.com', '456789');
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `product_info`
+-- Cấu trúc cho view `product_info`
 --
 DROP TABLE IF EXISTS `product_info`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_info`  AS  (select `p`.`product_id` AS `product_id`,`p`.`product_title` AS `product_title`,`p`.`product_category_id` AS `product_category_id`,`p`.`is_product_new` AS `is_product_new`,`p`.`is_product_sale` AS `is_product_sale`,`p`.`product_current_price` AS `product_current_price`,`p`.`product_original_price` AS `product_original_price`,`p`.`product_price_unit` AS `product_price_unit`,`p`.`product_description` AS `product_description`,`p`.`short_desc` AS `short_desc`,`p`.`product_image` AS `product_image`,`p`.`product_remain` AS `product_remain`,sum(`r`.`star`) / count(`r`.`rating_id`) AS `product_star` from (`products` `p` left join `rating` `r` on(`p`.`product_id` = `r`.`product_id`)) group by `p`.`product_id`) ;
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `categories`
+-- Chỉ mục cho bảng `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`cat_id`);
 
 --
--- Indexes for table `news`
+-- Chỉ mục cho bảng `news`
 --
 ALTER TABLE `news`
   ADD PRIMARY KEY (`news_id`);
 
 --
--- Indexes for table `products`
+-- Chỉ mục cho bảng `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`product_id`);
 
 --
--- Indexes for table `rating`
+-- Chỉ mục cho bảng `rating`
 --
 ALTER TABLE `rating`
   ADD PRIMARY KEY (`rating_id`);
 
 --
--- Indexes for table `users`
+-- Chỉ mục cho bảng `subscriber`
+--
+ALTER TABLE `subscriber`
+  ADD PRIMARY KEY (`subscriber_id`);
+
+--
+-- Chỉ mục cho bảng `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`supplier_id`);
+
+--
+-- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
   MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `news`
+-- AUTO_INCREMENT cho bảng `news`
 --
 ALTER TABLE `news`
   MODIFY `news_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `products`
+-- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT for table `rating`
+-- AUTO_INCREMENT cho bảng `rating`
 --
 ALTER TABLE `rating`
   MODIFY `rating_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT cho bảng `subscriber`
+--
+ALTER TABLE `subscriber`
+  MODIFY `subscriber_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

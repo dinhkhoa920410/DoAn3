@@ -3,10 +3,10 @@
         <!-- <hr> -->
 
         <!-- Footer -->
-        <footer>
+        <footer style="border-top: solid 1px #cccccc; padding-top: 24px; width: 100%; margin-top: 72px;">
             <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2030</p>
+                <div class="col-lg-12" style="text-align:center;">
+                    <p style="font-size: 16px; font-weight: 600;">Copyright &copy; Your Website 2021</p>
                 </div>
             </div>
         </footer>
