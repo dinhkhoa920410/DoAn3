@@ -2,6 +2,8 @@
 
 <?php include(TEMPLATE_FRONT . DS . "header.php") ?>
 
+<?php include(TEMPLATE_FRONT . DS . "main-banner.php") ?>
+
 <?php
     // unset($_SESSION['cart']);
     // unset($_SESSION['cart_count']);

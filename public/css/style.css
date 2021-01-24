@@ -228,7 +228,8 @@
 .rate a:hover~a {
     color: #222;
     text-shadow: none;
-    transition: color 200ms, text-shadow 200ms;
+    /* transition: color 200ms, text-shadow 200ms; */
+    transition: color 200ms;
     text-decoration: none;
     transition-delay: 0;
     font-size: 48px;
@@ -237,7 +238,7 @@
 .rate:hover a,
 .rate .active {
     color: #fc0;
-    text-shadow: #fc0 0 0 20px;
+    /* text-shadow: #fc0 0 0 20px; */
 }
 
 .rate:hover i:nth-child(2) {
