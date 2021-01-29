@@ -20,6 +20,17 @@
             deleteFromCart($roundToDelete);
         }
 
+        if(isset($_POST['remove'])){
+            $roundToRemove = $_POST['remove'];
+            removeFromCart($roundToRemove);
+        }
+
+        if(isset($_POST['add'])){
+            $roundToAdd = $_POST['add'];
+            addFromCart($roundToAdd);
+            
+        }
+
         redirect("checkout.php");
     // }
 

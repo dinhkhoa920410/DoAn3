@@ -116,12 +116,12 @@
                         <a href="index.php">Trang chủ</a>
                         <a href="category.php?cat=1&page=1&filter=0">Sản phẩm các loại</a>
                         <a href="news.php">Khuyến mãi</a>
-                        <a href="">Liên hệ</a>
+                        <a href="contact.php">Liên hệ</a>
                     </div>
 
 
                     <div class="col-md-3 shopping-cart">
-                        <button class="dropbtn"><span><i class="fas fa-shopping-cart"></i></span>GIỎ HÀNG</button>
+                        <button class="dropbtn"><span><i class="fas fa-shopping-cart"></i></span><a href="checkout.php" style="color: #554510; text-decoration: none;">GIỎ HÀNG</a></button>
                     </div>
 
 

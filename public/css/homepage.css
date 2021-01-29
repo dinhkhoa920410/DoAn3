@@ -4,8 +4,21 @@
             box-sizing: border-box;
         }
         
+        body li::marker {
+            unicode-bidi: none;
+            font-variant-numeric: none;
+            text-transform: none;
+            text-indent: none;
+            text-align: none;
+            text-align-last: none;
+        }
+        
         *:focus {
             outline: none;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
@@ -160,13 +173,12 @@
         .MultiCarousel .MultiCarousel-inner .item {
             float: left;
         }
-        
-        .MultiCarousel .MultiCarousel-inner .item:hover {
+        /* .MultiCarousel .MultiCarousel-inner .item:hover {
             box-sizing: border-box;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             border: 1px solid #ffffff;
-        }
+        } */
         
         .MultiCarousel .MultiCarousel-inner .item>div {
             text-align: center;
@@ -386,14 +398,56 @@
         .rightLst i {
             color: #ffffff!important;
         }
-        
-        .item:hover {
+        /* .item:hover {
             box-sizing: border-box;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             border: 1px solid #ffffff;
-        }
+        } */
         
         .dropdown-content a:hover {
             padding-left: 24px;
+        }
+        
+        .news-element .news-title:hover {
+            color: #78a204;
+        }
+        
+        .item-diff .view-more a {
+            color: #43992A;
+        }
+        
+        .item-diff .view-more a:hover {
+            color: #224D15;
+            text-decoration: none;
+        }
+        
+        .item-scroll .MultiCarousel .leftLst,
+        .MultiCarousel .rightLst {
+            position: absolute;
+            border-radius: 50%;
+            top: calc(50% - 20px);
+        }
+        
+        .item-scroll .MultiCarousel .leftLst {
+            left: 0;
+        }
+        
+        .item-scroll .MultiCarousel .rightLst {
+            right: 0;
+        }
+        
+        .item-scroll .MultiCarousel .leftLst.over,
+        .MultiCarousel .rightLst.over {
+            pointer-events: none;
+            background: #ccc;
+            opacity: 0.5;
+            translate: 001;
+        }
+        
+        .item-scroll .btn-primary {
+            color: #fff;
+            background-color: #78a204;
+            border-color: #ebebeb;
+            opacity: 0.7;
         }

@@ -66,7 +66,7 @@
                 </div>
 
                 <span class="current-price"><?php echo $productPrice ?></span>
-                <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
+                <span class="original-price"><?php if($isSale) echo $originalPrice;?></span> &#8363;/<?php echo $unit ?></p>
                 <p style="font-size: 16px;"><?php echo $shortDesc; ?></p>
 
 
@@ -101,7 +101,7 @@
         </div>
 
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" style="background-color: #f5dfc5">
         <h3 style="color: #78a204; font-weight: 700;"><img src="images/logo_hinh.png" alt="" style="width:15%; margin-right: 8px;">NHÀ CUNG CẤP</h3>
         <?php 
         $query = query("SELECT * FROM supplier JOIN categories ON supplier.cat_id = categories.cat_id");
@@ -117,7 +117,7 @@
         <h3 style="text-align: center; margin-top: 16px;"><?php echo $supplierName ?></h3>
         <p style="font-size: 16px; line-height: 1.5em; text-align: justify; margin-top: 16px;"><?php echo $supplierShort ?></p>
         <p style="font-weight: 600; line-height: 1.5em; font-size: 16px;">Địa chỉ: <span><?php echo $supplierAddress;?></span></p>
-        <p style="font-weight: 600; line-height: 1.5em; font-size: 16px;">Số điện thoại: <span><?php echo $supplierPhone;?></span></p>
+        <p style="font-weight: 600; line-height: 1.5em; font-size: 16px; padding-bottom: 24px;">Số điện thoại: <span><?php echo $supplierPhone;?></span></p>
     </div>
 </div>
 
@@ -136,19 +136,22 @@
 <!-- Tab panes -->
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="profile">
-        <div class="col-md-6  scroll-vertical">
+        
+        
+    <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example col-md-6">
         <?php
-            $numberCommentsPerPage = 5;
-            $query = query("SELECT * FROM rating JOIN users ON rating.user_id = users.user_id WHERE product_id = " . escape_string($_GET['id']));
+            $numberCommentsPerPage = 3;
+            // $query = query("SELECT * FROM rating JOIN users ON rating.user_id = users.user_id WHERE product_id = " . escape_string($_GET['id']) . "LIMIT $numberCommentsPerPage");
+            $query = query("SELECT * FROM product_rating ORDER BY datetime DESC LIMIT $numberCommentsPerPage");
+
             while($row = fetch_array($query)):
-                $userID = $row['user_id'];
+                // $userID = $row['user_id'];
                 $star = $row['star'];
                 $comment = $row['comment'];
                 $dateTime = $row['datetime'];
                 $userName = $row['username'];
         ?>
-            
-            <div class="row" style="margin-top: 16px;">
+                <div class="row" style="margin-top: 16px;">
                 <div class="col-md-12" style="margin-left=0; background-color: rgb(245, 245, 245);">
                     <h3><?php echo $userName ?></h3>
                     <span class="rate">
@@ -166,10 +169,14 @@
         <?php 
             endwhile;
         ?>
+            
         </div>
+
+
+
         <div class="col-md-6">
             <div id="rating"></div>
-            <h4><i style="color:#969696;">Vui lòng đăng nhập khi đánh giá sản phẩm</i></h4>
+            <h4><i style="color:#969696;">(Vui lòng đăng nhập khi đánh giá sản phẩm)</i></h4>
             <form action="product_rating.php?<?php echo remove_param("star");?>#rating" class="form-inline" method="POST">
             <div>
                     <?php
@@ -205,7 +212,7 @@
                     <div class="form-group">
                         
                         <input type="submit" class="btn" value="NHẤN GỬI" style="padding: 8px 24px 8px 24px; border-radius: 24px; border: none; background-color: #f9c937;
-                        font-weight: 600; color: #554510; font-size: 16px;">
+                        font-weight: 600; color: #554510; font-size: 16px; margin-bottom: 56px;">
                     </div>
                 
             </form>
@@ -216,18 +223,21 @@
         <p><?php echo $productDescription; ?></p>
     </div>  
 
-    <div class="row">
+
+
+    <div class="row item-scroll">
               
     <h3 style="color: #78a204; font-weight: 700;"><img src="images/logo_hinh.png" alt="" style="width:5%; margin-right: 8px;">NÔNG SẢN TƯƠNG TỰ</h3>
                 <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000" style="margin-top: 24px;">
                         <div class="MultiCarousel-inner">
                         <?php
 
-                        $query = query("SELECT * FROM product_info WHERE is_product_sale = 1 HAVING product_current_price/product_original_price < 0.65 ");
+                        $query = query("SELECT * FROM product_info");
                         confirm($query);
 
                         while($row = fetch_array($query)):
                             $productID = $row['product_id'];
+                            $productCAT = $row['product_category_id'];
                             $isNew = $row['is_product_new'];
                             $isSale = $row['is_product_sale'];
                             $saleRate = 100 - $row['product_current_price']/$row['product_original_price']*100;
@@ -237,7 +247,8 @@
                             $productIMG = $row['product_image'];
                             $rating = $row['product_star'] ? $row['product_star'] : 0;
                             $unit = $row['product_price_unit'];
-
+                            
+                            if($productCAT == $_GET['cat']) {
                     ?>
                     <div class="item">
                           <div class="row">
@@ -261,7 +272,7 @@
                             </a>
                             <p class="product-price">
                                 <span class="current-price"><?php echo $productPrice ?></span>
-                                <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
+                                <span class="original-price"><?php if($isSale) echo $originalPrice ;?></span> &#8363;/<?php echo $unit ?></p>
                                 <p class="star-rate">
                                 <span class="rate">
                                     <i class="star1 <?php if($rating>=1){?>active<?php }?>">★</i>
@@ -274,11 +285,14 @@
                                 </p>
                         </div>
 
-                        <?php endwhile ?>
-
+                        <?php } endwhile ?>
+                        
+            
+            
+            
                         </div>
-                        <button class="btn btn-primary leftLst"><i class="fas fa-chevron-left"></i></button>
-                    <button class="btn btn-primary rightLst"><i class="fas fa-chevron-right"></i></button>
+                        <button class="btn btn-primary leftLst" style="color: #fff; background-color: #78a204; border-color: #ebebeb; opacity: 0.7;"><i class="fas fa-chevron-left"></i></button>
+                    <button class="btn btn-primary rightLst" style="color: #fff; background-color: #78a204; border-color: #ebebeb; opacity: 0.7;"><i class="fas fa-chevron-right"></i></button>
                 </div>
               </div>
 
@@ -287,13 +301,76 @@
     </div>
 
 
-    <div class="col-md-3">
+    <div class="col-md-3 item-diff">
     <h3 style="color: #78a204; font-weight: 700;"><img src="images/logo_hinh.png" alt="" style="width:15%; margin-right: 8px;">NÔNG SẢN KHÁC</h3>
+    <?php 
+    $query = query("SELECT * FROM product_info ORDER BY RAND() LIMIT 2");
+    confirm($query);
 
+    while($row = fetch_array($query)):
+        $productID = $row['product_id'];
+        $productCAT = $row['product_category_id'];
+        $isNew = $row['is_product_new'];
+        $isSale = $row['is_product_sale'];
+        $saleRate = 100 - $row['product_current_price']/$row['product_original_price']*100;
+        $productName = $row['product_title'];
+        $productPrice = $row['product_current_price'];
+        $originalPrice = $row['product_original_price'];
+        $productIMG = $row['product_image'];
+        $rating = $row['product_star'] ? $row['product_star'] : 0;
+        $unit = $row['product_price_unit'];
+
+    ?>
+    <ul>
+        <li  style="text-decoration: none;">
+        <div class="item" style="padding-left: 40px;">
+                          <div class="row">
+                            <div class="col-md-6 item-right">
+                              <div class="is-new" <?php if($isNew){?>style="visibility:visible"<?php }?>>
+                                  <h5>MỚI</h5>
+                              </div>
+                            </div>
+                            <div class="col-md-6 item-left">
+                              <div class="sale-rate" <?php if($isSale){?>style="visibility:visible"<?php }?>>
+                                  <h4>-<?php echo number_format($saleRate) ?>%</h4> 
+                              </div>
+                            </div>
+                          </div>
+                            <a href="item.php?id=<?php echo $productID;?>&cat=<?php echo $productCAT;?>&star=<?php echo $rating;?>">
+                            <div class="pad15">
+                                <img src="images/<?php echo $productIMG; ?>" alt="">
+                                <p class="p-name"><?php echo $productName; ?></p>
+                                
+                            </div>
+                            </a>
+                            <p class="product-price">
+                                <span class="current-price"><?php echo $productPrice; ?></span>
+                                <span class="original-price"><?php if($isSale) echo $originalPrice; ?></span> &#8363;/<?php echo $unit; ?></p>
+                                <p class="star-rate">
+                                <span class="rate">
+                                    <i class="star1 <?php if($rating>=1){?>active<?php }?>">★</i>
+                                    <i class="star2 <?php if($rating>=2){?>active<?php }?>">★</i>
+                                    <i class="star3 <?php if($rating>=3){?>active<?php }?>">★</i>
+                                    <i class="star4 <?php if($rating>=4){?>active<?php }?>">★</i>
+                                    <i class="star5 <?php if($rating>=5){?>active<?php }?>">★</i>
+                                </span>
+                                <!-- <?php echo $rating;?> -->
+                                </p>
+                        </div>
+        </li>
+    </ul>
+            
+        
+            
+    <?php 
+     endwhile ?>
+    
+    <div class="view-more" style="text-align: right; padding: 32px;">
+        <a href="category.php?cat=<?php echo $categoryID?>&page=1&filter=0">Xem thêm</a>
+    </div>
 
     </div>
 </div>
-
 
 
 <?php include(TEMPLATE_FRONT . DS . "footer.php") ?>

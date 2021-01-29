@@ -9,6 +9,23 @@
     outline: none;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+body>textarea {
+    resize: none;
+}
+
+body li::marker {
+    unicode-bidi: none;
+    font-variant-numeric: none;
+    text-transform: none;
+    text-indent: none;
+    text-align: none;
+    text-align-last: none;
+}
+
 
 /* ----------------------------------------------------------------------------------- */
 
@@ -132,12 +149,13 @@
     font-weight: 600;
 }
 
-.main-area .items:hover {
+
+/* .main-area .items:hover {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     border: 1px solid #ffffff;
-}
+} */
 
 .main-area li:hover .hide-on-hover {
     visibility: hidden;

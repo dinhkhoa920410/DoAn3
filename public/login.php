@@ -57,7 +57,7 @@
     font-weight: 600; color: #554510; font-size: 16px;">ĐĂNG NHẬP</button>
 </div>
 
-<p style="text-align: center; font-size: 16px">Bạn chưa có tài khoản ? <a href="" class="sign-up-2">Đăng ký</a> </p>
+<p style="text-align: center; font-size: 16px">Bạn chưa có tài khoản ? <a href="signup.php" class="sign-up-2">Đăng ký</a> </p>
 </form>
                 </div>
         

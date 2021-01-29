@@ -114,7 +114,7 @@
                               </div>
                             </div>
                           </div>
-                            <a href="item.php?id=<?php echo $row['product_id']?>&star=0">
+                            <a href="item.php?id=<?php echo $row['product_id']?>&cat=<?php echo $row['product_category_id']?>&star=0">
                             <div class="pad15">
                                 <img src="images/<?php echo $productIMG ?>" alt="">
                                 <p class="p-name"><?php echo $productName ?></p>
@@ -123,7 +123,7 @@
                             </a>
                             <p class="product-price">
                                 <span class="current-price"><?php echo $productPrice ?></span>
-                                <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
+                                <span class="original-price"><?php if($isSale) echo $originalPrice;?></span> &#8363;/<?php echo $unit ?></p>
                                 <p class="star-rate">
                                 <span class="rate">
                                     <i class="star1 <?php if($rating>=1){?>active<?php }?>">★</i>
@@ -202,7 +202,7 @@
                               </div>
                             </div>
                           </div>
-                            <a href="item.php?id=<?php echo $row['product_id']?>&star=0">
+                            <a href="item.php?id=<?php echo $row['product_id']?>&cat=<?php echo $row['product_category_id']?>&star=0">
                             <div class="pad15">
                                 <img src="images/<?php echo $productIMG ?>" alt="">
                                 <p class="p-name"><?php echo $productName ?></p>
@@ -211,7 +211,7 @@
                             </a>
                             <p class="product-price">
                                 <span class="current-price"><?php echo $productPrice ?></span>
-                                <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
+                                <span class="original-price"><?php if($isSale) echo $originalPrice ;?></span> &#8363;/<?php echo $unit ?></p>
                                 <p class="star-rate">
                                 <span class="rate">
                                     <i class="star1 <?php if($rating>=1){?>active<?php }?>">★</i>
@@ -271,7 +271,7 @@
                               </div>
                             </div>
                           </div>
-                            <a href="item.php?id=<?php echo $row['product_id']?>&star=0">
+                            <a href="item.php?id=<?php echo $row['product_id']?>&cat=<?php echo $row['product_category_id']?>&star=0">
                             <div class="pad15">
                                 <img src="images/<?php echo $productIMG ?>" alt="">
                                 <p class="p-name"><?php echo $productName ?></p>
@@ -280,7 +280,7 @@
                             </a>
                             <p class="product-price">
                                 <span class="current-price"><?php echo $productPrice ?></span>
-                                <span class="original-price"><?php echo $originalPrice ?></span> &#8363;/<?php echo $unit ?></p>
+                                <span class="original-price"><?php if($isSale) echo $originalPrice; ?></span> &#8363;/<?php echo $unit ?></p>
                                 <p class="star-rate">
                                 <span class="rate">
                                     <i class="star1 <?php if($rating>=1){?>active<?php }?>">★</i>
